@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Matteo Fabbri</Authors>
+    <Description>Server side visitor analytics tool for AspNet Core</Description>
+    <Copyright>Matteo Fabbri 2018</Copyright>
+    <PackageLicenseUrl>https://matteofabbri.org/</PackageLicenseUrl>
+    <PackageProjectUrl>https://matteofabbri.org/server-side-analytics</PackageProjectUrl>
+    <PackageTags>server side analytics web stat visitors visitor gdpr remote ip refer url network path user username identity geo ip</PackageTags>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Countries.Standard" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>
