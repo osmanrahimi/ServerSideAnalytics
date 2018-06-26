@@ -13,3 +13,8 @@
 /ServerSideAnalytics.SqLite/obj
 /ServerSideAnalytics.SqlServer/bin/Release/netstandard2.0
 /ServerSideAnalytics.SqlServer/obj
+/.vs
+/ServerSideAnalytics/bin
+/ServerSideAnalytics.IpInfo/bin
+/ServerSideAnalytics.SqLite/bin
+/ServerSideAnalytics.SqlServer/bin
