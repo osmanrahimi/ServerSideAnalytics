@@ -1,2 +1,15 @@
 /obj
 /bin
+/ServerSideAnalytics/.vs/ServerSideAnalytics/v15
+/ServerSideAnalytics/obj
+/.vs/ServerSideAnalytics/v15
+/ServerSideAnalytics.Common/obj
+/ServerSideAnalytics.Common/bin
+/ServerSideAnalytics.IpInfo/obj
+/ServerSideAnalytics.Mongo/bin
+/ServerSideAnalytics.Mongo/obj
+/ServerSideAnalytics.Mongo/ServerSideAnalytics.Mongo.csproj.user
+/ServerSideAnalytics.SqLite/bin/Debug/netstandard2.0
+/ServerSideAnalytics.SqLite/obj
+/ServerSideAnalytics.SqlServer/bin/Release/netstandard2.0
+/ServerSideAnalytics.SqlServer/obj

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Matteo Fabbri</Authors>
+    <Copyright>Matteo Fabbri 2018</Copyright>
+    <PackageLicenseUrl>https://github.com/matteofabbri/ServerSideAnalytics/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://matteofabbri.org/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/matteofabbri/ServerSideAnalytics</RepositoryUrl>
+    <PackageTags>server side analytics analytic web stat statistic repository ip tracking request requests referer user agent useragent</PackageTags>
+    <PackageReleaseNotes>first relase</PackageReleaseNotes>
+    <Description>Provide Mongo database store for ServerSideAnalytics</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.6.1" />
+    <PackageReference Include="ServerSideAnalytics" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>
