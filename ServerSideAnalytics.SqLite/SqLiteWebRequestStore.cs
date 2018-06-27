@@ -6,22 +6,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ServerSideAnalytics.SqLite
 {
-    public class SqLiteWebRequestStore : IWebRequestStore<EntityFrameworkWebRequest>
+    public class SqLiteWebRequestStore : IWebRequestStore<WebRequest>
     {
         private readonly string _connectionString;
 
-        protected SqLiteWebRequestStore(string connectionString)
+        public SqLiteWebRequestStore(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public EntityFrameworkWebRequest GetNew() => new EntityFrameworkWebRequest();
+        public WebRequest GetNew() => new WebRequest();
 
-        public async Task AddAsync(EntityFrameworkWebRequest request)
+        public async Task AddAsync(WebRequest request)
         {
             using (var db = new SqLiteContext(_connectionString))
             {
-                await db.AddAsync(request);
+                await db.Database.EnsureCreatedAsync();
+                await db.WebRequest.AddAsync(request);
+                await db.SaveChangesAsync();
             }
         }
 
@@ -36,7 +38,7 @@ namespace ServerSideAnalytics.SqLite
         {
             using (var db = new SqLiteContext(_connectionString))
             {
-                return await db.Requests.Where(x => x.Timestamp >= from && x.Timestamp <= to).GroupBy(x => x.Identity).CountAsync();
+                return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).GroupBy(x => x.Identity).CountAsync();
             }
         }
 
@@ -44,7 +46,7 @@ namespace ServerSideAnalytics.SqLite
         {
             using (var db = new SqLiteContext(_connectionString))
             {
-                return await db.Requests.Where(x => x.Timestamp >= from && x.Timestamp <= to).CountAsync();
+                return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).CountAsync();
             }
         }
 
@@ -59,7 +61,7 @@ namespace ServerSideAnalytics.SqLite
         {
             using (var db = new SqLiteContext(_connectionString))
             {
-                return await db.Requests.Where(x => x.Timestamp >= from && x.Timestamp <= to).Select(x => x.Identity)
+                return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).Select(x => x.Identity)
                     .ToListAsync();
             }
         }
@@ -68,7 +70,7 @@ namespace ServerSideAnalytics.SqLite
         {
             using (var db = new SqLiteContext(_connectionString))
             {
-                return await db.Requests.Where(x => x.Identity == identity).ToListAsync();
+                return await db.WebRequest.Where(x => x.Identity == identity).ToListAsync();
             }
         }
     }

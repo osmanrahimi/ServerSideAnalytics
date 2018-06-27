@@ -19,3 +19,4 @@
 /ServerSideAnalytics.SqLite/bin
 /ServerSideAnalytics.SqlServer/bin
 /TestApp/TestApp.SqlServer/bin/Debug/netcoreapp2.1
+/TestApp.Sqlite/bin/Debug/netcoreapp2.1

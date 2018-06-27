@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using TestApp.Sqlite.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServerSideAnalytics;
+using ServerSideAnalytics.SqLite;
 
 namespace TestApp.Sqlite
 {
@@ -62,6 +64,8 @@ namespace TestApp.Sqlite
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseServerSideAnalytics(new SqLiteWebRequestStore("Data Source = stat.db"));
 
             app.UseMvc(routes =>
             {
