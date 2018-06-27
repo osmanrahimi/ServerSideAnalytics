@@ -10,12 +10,14 @@
     <PackageLicenseUrl>https://github.com/matteofabbri/ServerSideAnalytics/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://matteofabbri.org/read/server-side-analytics</PackageProjectUrl>
     <RepositoryUrl>https://github.com/matteofabbri/ServerSideAnalytics</RepositoryUrl>
-    <PackageTags>storage server side analytics web stat visitors visitor gdpr remote ip refer url network path user username identity geo ip</PackageTags>
+    <PackageTags>storage server side analytics analytic  web stat visitors visitor gdpr remote ip refer url network path user username identity geo ip</PackageTags>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="ServerSideAnalytics" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
