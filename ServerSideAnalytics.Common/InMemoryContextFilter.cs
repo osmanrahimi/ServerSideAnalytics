@@ -32,6 +32,7 @@ namespace ServerSideAnalytics
                     if (bytes[0] == 192 && bytes[1] == 168) return false;
                 }
             }
+            IPAddress.
 
             if (FilterLoopback) return !IPAddress.IsLoopback(ipAddress);
 

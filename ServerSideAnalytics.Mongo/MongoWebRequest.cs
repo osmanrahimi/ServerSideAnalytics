@@ -13,7 +13,6 @@ namespace ServerSideAnalytics.Mongo
         public DateTime Timestamp { get; set; }
         public string Identity { get; set; }
         public string RemoteIpAddress { get; set; }
-        public string User { get; set; }
         public string Method { get; set; }
         public string Path { get; set; }
         public string UserAgent { get; set; }

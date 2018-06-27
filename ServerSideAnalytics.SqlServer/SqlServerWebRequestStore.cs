@@ -6,22 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ServerSideAnalytics.SqlServer
 {
-    public class SqlServerWebRequestStore : IWebRequestStore<EntityFrameworkWebRequest>
+    public class SqlServerWebRequestStore : IWebRequestStore<WebRequest>
     {
         private readonly string _connectionString;
 
-        protected SqlServerWebRequestStore(string connectionString)
+        public SqlServerWebRequestStore(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public EntityFrameworkWebRequest GetNew() => new EntityFrameworkWebRequest();
+        public WebRequest GetNew() => new WebRequest();
 
-        public async Task AddAsync(EntityFrameworkWebRequest request)
+        public async Task AddAsync(WebRequest request)
         {
             using (var db = new SqlServerContext(_connectionString))
             {
-                await db.AddAsync(request);
+                await db.WebRequest.AddAsync(request);
+                await db.SaveChangesAsync();
             }
         }
 
@@ -36,7 +37,7 @@ namespace ServerSideAnalytics.SqlServer
         {
             using (var db = new SqlServerContext(_connectionString))
             {
-                return await db.Requests.Where(x => x.Timestamp >= from && x.Timestamp <= to).GroupBy(x => x.Identity).CountAsync();
+                return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).GroupBy(x => x.Identity).CountAsync();
             }
         }
 
@@ -44,7 +45,7 @@ namespace ServerSideAnalytics.SqlServer
         {
             using (var db = new SqlServerContext(_connectionString))
             {
-                return await db.Requests.Where(x => x.Timestamp >= from && x.Timestamp <= to).CountAsync();
+                return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).CountAsync();
             }
         }
 
@@ -59,7 +60,7 @@ namespace ServerSideAnalytics.SqlServer
         {
             using (var db = new SqlServerContext(_connectionString))
             {
-                return await db.Requests.Where(x => x.Timestamp >= from && x.Timestamp <= to).Select(x => x.Identity)
+                return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).Select(x => x.Identity)
                     .ToListAsync();
             }
         }
@@ -68,7 +69,7 @@ namespace ServerSideAnalytics.SqlServer
         {
             using (var db = new SqlServerContext(_connectionString))
             {
-                return await db.Requests.Where(x => x.Identity == identity).ToListAsync();
+                return await db.WebRequest.Where(x => x.Identity == identity).ToListAsync();
             }
         }
     }

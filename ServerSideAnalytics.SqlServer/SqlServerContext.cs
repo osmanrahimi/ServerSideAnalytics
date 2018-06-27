@@ -2,15 +2,29 @@
 
 namespace ServerSideAnalytics.SqlServer
 {
-    class SqlServerContext : DbContext
+    internal class SqlServerContext : DbContext
     {
+        private readonly string _table;
         private readonly string _connectionString;
-
-        public DbSet<EntityFrameworkWebRequest> Requests { get; set; }
 
         public SqlServerContext(string connectionString)
         {
             _connectionString = connectionString;
+            _table = "WebRequest";
+        }
+
+        public SqlServerContext(string connectionString, string table)
+        {
+            _connectionString = connectionString;
+            _table = table;
+        }
+
+        public DbSet<WebRequest> WebRequest { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<WebRequest>(b => { b.ToTable(_table); });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

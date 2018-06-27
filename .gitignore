@@ -18,3 +18,4 @@
 /ServerSideAnalytics.IpInfo/bin
 /ServerSideAnalytics.SqLite/bin
 /ServerSideAnalytics.SqlServer/bin
+/TestApp/TestApp.SqlServer/bin/Debug/netcoreapp2.1
