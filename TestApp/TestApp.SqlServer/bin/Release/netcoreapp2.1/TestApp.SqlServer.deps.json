@@ -27,8 +27,8 @@
           "Microsoft.AspNetCore.App": "2.1.0",
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.0",
-          "ServerSideAnalytics": "2.0.0",
-          "ServerSideAnalytics.SqlServer": "1.0.0"
+          "ServerSideAnalytics": "2.1.0",
+          "ServerSideAnalytics.SqlServer": "2.0.0"
         },
         "runtime": {
           "TestApp.SqlServer.dll": {}
@@ -525,7 +525,7 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "ServerSideAnalytics/2.0.0": {
+      "ServerSideAnalytics/2.1.0": {
         "dependencies": {
           "Countries.Standard": "1.0.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.1.0"
@@ -537,10 +537,11 @@
           "ServerSideAnalytics.dll": {}
         }
       },
-      "ServerSideAnalytics.SqlServer/1.0.0": {
+      "ServerSideAnalytics.SqlServer/2.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "2.1.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.0",
+          "ServerSideAnalytics": "2.1.0"
         },
         "runtime": {
           "ServerSideAnalytics.SqlServer.dll": {}
@@ -3682,12 +3683,12 @@
       "path": "system.linq.parallel/4.3.0",
       "hashPath": "system.linq.parallel.4.3.0.nupkg.sha512"
     },
-    "ServerSideAnalytics/2.0.0": {
+    "ServerSideAnalytics/2.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "ServerSideAnalytics.SqlServer/1.0.0": {
+    "ServerSideAnalytics.SqlServer/2.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

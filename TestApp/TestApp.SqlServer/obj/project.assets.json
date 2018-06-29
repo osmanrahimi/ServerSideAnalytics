@@ -4625,7 +4625,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "ServerSideAnalytics/2.0.0": {
+      "ServerSideAnalytics/2.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -4639,12 +4639,13 @@
           "bin/placeholder/ServerSideAnalytics.dll": {}
         }
       },
-      "ServerSideAnalytics.SqlServer/1.0.0": {
+      "ServerSideAnalytics.SqlServer/2.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "2.1.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.0",
+          "ServerSideAnalytics": "2.0.0"
         },
         "compile": {
           "bin/placeholder/ServerSideAnalytics.SqlServer.dll": {}
@@ -12262,12 +12263,12 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "ServerSideAnalytics/2.0.0": {
+    "ServerSideAnalytics/2.1.0": {
       "type": "project",
       "path": "../../ServerSideAnalytics/ServerSideAnalytics.csproj",
       "msbuildProject": "../../ServerSideAnalytics/ServerSideAnalytics.csproj"
     },
-    "ServerSideAnalytics.SqlServer/1.0.0": {
+    "ServerSideAnalytics.SqlServer/2.0.0": {
       "type": "project",
       "path": "../../ServerSideAnalytics.SqlServer/ServerSideAnalytics.SqlServer.csproj",
       "msbuildProject": "../../ServerSideAnalytics.SqlServer/ServerSideAnalytics.SqlServer.csproj"
@@ -12278,8 +12279,8 @@
       "Microsoft.AspNetCore.App >= 2.1.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.0",
-      "ServerSideAnalytics >= 2.0.0",
-      "ServerSideAnalytics.SqlServer >= 1.0.0"
+      "ServerSideAnalytics >= 2.1.0",
+      "ServerSideAnalytics.SqlServer >= 2.0.0"
     ]
   },
   "packageFolders": {

@@ -14,7 +14,7 @@ namespace ServerSideAnalytics
         private readonly IApplicationBuilder _app;
         private readonly IWebRequestStore<T> _repository;
         private List<Func<HttpContext, bool>> _exclude;
-        private Func<IPAddress, CountryCode> _geoResolve;
+        private Func<IPAddress, Task<CountryCode>> _geoResolve;
 
         private static string UserIdentity(HttpContext context)
         {
@@ -50,7 +50,14 @@ namespace ServerSideAnalytics
             req.UserAgent = context.Request.Headers["User-Agent"];
             req.Path = context.Request.Path.Value;
 
-            req.Country = _geoResolve?.Invoke(context.Connection.RemoteIpAddress) ?? CountryCode.World;
+            if(_geoResolve != null)
+            {
+                req.Country = await _geoResolve(context.Connection.RemoteIpAddress);
+            }
+            else
+            {
+                req.Country = CountryCode.World;
+            }
 
             await _repository.AddAsync(req);
             await next.Invoke();
@@ -71,9 +78,17 @@ namespace ServerSideAnalytics
 
         public FluidAnalyticBuilder<T> ExcludeExtension(string extension) => Exclude(x => x.Request.Path.Value?.EndsWith(extension) ?? false);
 
+        public FluidAnalyticBuilder<T> ExcludeExtension(params string[] extensions) => Exclude(x => extensions.Any(ext => x.Request.Path.Value?.EndsWith(ext) ?? false));
+
         public FluidAnalyticBuilder<T> ExcludeLoopBack() => Exclude(x => IPAddress.IsLoopback(x.Connection.RemoteIpAddress));
 
         public FluidAnalyticBuilder<T> UseGeoIp(Func<IPAddress, CountryCode> geoResolve)
+        {
+            _geoResolve = new Func<IPAddress, Task<CountryCode>>( x=> Task.FromResult(geoResolve(x)));
+            return this;
+        }
+
+        public FluidAnalyticBuilder<T> UseGeoIp(Func<IPAddress, Task<CountryCode>> geoResolve)
         {
             _geoResolve = geoResolve;
             return this;
