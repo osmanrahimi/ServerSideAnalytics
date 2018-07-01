@@ -47,7 +47,7 @@ namespace ServerSideAnalytics.Mongo
 
         public Task<long> CountAsync(DateTime from, DateTime to)
         {
-            return _mongoCollection.CountAsync(x => x.Timestamp >= from && x.Timestamp <= to);
+            return _mongoCollection.CountDocumentsAsync(x => x.Timestamp >= from && x.Timestamp <= to);
         }
 
         public Task<IEnumerable<string>> IpAddresses(DateTime day)
