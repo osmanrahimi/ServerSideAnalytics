@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Countries.Core</id>
+    <version>1.0.0</version>
+    <authors>Matteo Fabbri</authors>
+    <owners>Matteo Fabbri</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ISO 3166 countries library, including: common Name, official Name, TLD,two and three letter country code, ISO numeric code, CIOC, currencies, callingCodes, capital, alternative spellings, region, subRegion, borders, is landlocked and area in square kilometers</description>
+    <copyright>Matteo Fabbri 2018</copyright>
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\PROGETTI\ServerSideAnalytics\Countries.Core\bin\Debug\netcoreapp2.0\Countries.Core.dll" target="lib\netcoreapp2.0\Countries.Core.dll" />
+  </files>
+</package>

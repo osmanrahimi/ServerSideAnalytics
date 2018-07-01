@@ -1,0 +1,9 @@
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\bin\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.deps.json
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\bin\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.dll
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\obj\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.csproj.CoreCompileInputs.cache
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\obj\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.AssemblyInfoInputs.cache
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\obj\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.AssemblyInfo.cs
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\bin\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.pdb
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\obj\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.dll
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\obj\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.pdb
+D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.GeoSqlServer\obj\Release\netstandard2.0\ServerSideAnalytics.GeoSqlServer.csprojAssemblyReference.cache

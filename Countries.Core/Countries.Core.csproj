@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>Matteo Fabbri</Authors>
+    <Product>Matteo Fabbri</Product>
+    <Description>ISO 3166 countries library, including: common Name, official Name, TLD,two and three letter country code, ISO numeric code, CIOC, currencies, callingCodes, capital, alternative spellings, region, subRegion, borders, is landlocked and area in square kilometers</Description>
+    <Copyright>Matteo Fabbri 2018</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>

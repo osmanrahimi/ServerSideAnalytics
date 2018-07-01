@@ -4625,7 +4625,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "ServerSideAnalytics/2.1.0": {
+      "ServerSideAnalytics/2.1.1": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -12263,7 +12263,7 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "ServerSideAnalytics/2.1.0": {
+    "ServerSideAnalytics/2.1.1": {
       "type": "project",
       "path": "../../ServerSideAnalytics/ServerSideAnalytics.csproj",
       "msbuildProject": "../../ServerSideAnalytics/ServerSideAnalytics.csproj"
@@ -12279,7 +12279,7 @@
       "Microsoft.AspNetCore.App >= 2.1.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.0",
-      "ServerSideAnalytics >= 2.1.0",
+      "ServerSideAnalytics >= 2.1.1",
       "ServerSideAnalytics.SqlServer >= 2.0.0"
     ]
   },

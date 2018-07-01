@@ -1,0 +1,9 @@
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\bin\Debug\netcoreapp2.0\Countries.Core.deps.json
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\bin\Debug\netcoreapp2.0\Countries.Core.dll
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\bin\Debug\netcoreapp2.0\Countries.Core.pdb
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\obj\Debug\netcoreapp2.0\Countries.Core.csproj.CoreCompileInputs.cache
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\obj\Debug\netcoreapp2.0\Countries.Core.AssemblyInfoInputs.cache
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\obj\Debug\netcoreapp2.0\Countries.Core.AssemblyInfo.cs
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\obj\Debug\netcoreapp2.0\Countries.Core.dll
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\obj\Debug\netcoreapp2.0\Countries.Core.pdb
+D:\PROGETTI\ServerSideAnalytics\Countries.Core\obj\Debug\netcoreapp2.0\Countries.Core.csprojAssemblyReference.cache

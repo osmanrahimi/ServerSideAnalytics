@@ -1,0 +1,4 @@
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Release\netcoreapp2.0\TestApp.Mongo.csprojAssemblyReference.cache
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Release\netcoreapp2.0\TestApp.Mongo.csproj.CoreCompileInputs.cache
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Release\netcoreapp2.0\TestApp.Mongo.AssemblyInfoInputs.cache
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Release\netcoreapp2.0\TestApp.Mongo.AssemblyInfo.cs

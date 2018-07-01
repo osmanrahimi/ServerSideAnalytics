@@ -1,0 +1,16 @@
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\TestApp.Mongo.deps.json
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\TestApp.Mongo.runtimeconfig.json
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\TestApp.Mongo.runtimeconfig.dev.json
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\TestApp.Mongo.dll
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\TestApp.Mongo.pdb
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\ServerSideAnalytics.dll
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\ServerSideAnalytics.Mongo.dll
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\ServerSideAnalytics.Mongo.pdb
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\bin\Debug\netcoreapp2.0\ServerSideAnalytics.pdb
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Debug\netcoreapp2.0\TestApp.Mongo.csprojAssemblyReference.cache
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Debug\netcoreapp2.0\TestApp.Mongo.csproj.CoreCompileInputs.cache
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Debug\netcoreapp2.0\TestApp.Mongo.AssemblyInfoInputs.cache
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Debug\netcoreapp2.0\TestApp.Mongo.AssemblyInfo.cs
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Debug\netcoreapp2.0\TestApp.Mongo.csproj.CopyComplete
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Debug\netcoreapp2.0\TestApp.Mongo.dll
+D:\PROGETTI\ServerSideAnalytics\TestApp.Mongo\obj\Debug\netcoreapp2.0\TestApp.Mongo.pdb

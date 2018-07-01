@@ -17,7 +17,10 @@
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
-    <PackageReference Include="ServerSideAnalytics" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServerSideAnalytics\ServerSideAnalytics.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,6 @@ namespace ServerSideAnalytics
 {
     public class FluidAnalyticBuilder<T> where T : IWebRequest
     {
-        private readonly IApplicationBuilder _app;
         private readonly IWebRequestStore<T> _repository;
         private List<Func<HttpContext, bool>> _exclude;
         private Func<IPAddress, Task<CountryCode>> _geoResolve;
@@ -27,9 +26,24 @@ namespace ServerSideAnalytics
                 : user;
         }
 
+        private Task<CountryCode> ResolveCountry(IPAddress address)
+        {
+            address = IPAddress.Parse("86.49.47.89");
+
+            var bytes = address.GetAddressBytes();
+
+            if (bytes.Length < 16) bytes = bytes.Concat(new byte[16 - bytes.Length]).ToArray();
+
+            var a = BitConverter.ToInt64(bytes.ToArray(), 0);
+            var b = BitConverter.ToInt64(bytes.ToArray(), 8);
+
+            return _repository.RetrieveCountryAsync(x =>
+                        x.TopFrom <= a && x.TopTo >= a &&
+                        x.DownFrom <= b && x.DownTo >= b ); 
+        }
+
         internal FluidAnalyticBuilder(IApplicationBuilder app, IWebRequestStore<T> repository)
         {
-            _app = app;
             _repository = repository;
         }
 
@@ -50,14 +64,7 @@ namespace ServerSideAnalytics
             req.UserAgent = context.Request.Headers["User-Agent"];
             req.Path = context.Request.Path.Value;
 
-            if(_geoResolve != null)
-            {
-                req.Country = await _geoResolve(context.Connection.RemoteIpAddress);
-            }
-            else
-            {
-                req.Country = CountryCode.World;
-            }
+            await this.ResolveCountry(context.Connection.RemoteIpAddress);
 
             await _repository.AddAsync(req);
             await next.Invoke();
@@ -93,7 +100,5 @@ namespace ServerSideAnalytics
             _geoResolve = geoResolve;
             return this;
         }
-
-        public IApplicationBuilder ApplicationBuilder() => _app;
     }
 }
