@@ -13,6 +13,6 @@ namespace ServerSideAnalytics
         public string Path { get; set; }
         public string UserAgent { get; set; }
         public string Referer { get; set; }
-        public CountryCode Country { get; set; }
+        public CountryCode CountryCode { get; set; }
     }
 }

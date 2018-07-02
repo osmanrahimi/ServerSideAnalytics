@@ -8,7 +8,7 @@ namespace ServerSideAnalytics
 {
     public interface IAnalyticStore
     {
-        Task StoreWebRequest(WebRequest request);
+        Task StoreWebRequestAsync(WebRequest request);
 
         Task<long> CountUniqueAsync(DateTime day);
 
@@ -23,5 +23,7 @@ namespace ServerSideAnalytics
         Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity);
 
         Task StoreGeoIpRangeAsync(IPAddress from, IPAddress to, CountryCode countryCode);
+
+        Task<CountryCode> ResolveCountryCodeAsync(IPAddress address);
     }
 }

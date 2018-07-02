@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Maddalena;
 using Microsoft.AspNetCore.Http;
 
 namespace ServerSideAnalytics
@@ -12,7 +11,6 @@ namespace ServerSideAnalytics
     {
         private readonly IAnalyticStore _store;
         private List<Func<HttpContext, bool>> _exclude;
-        private Func<IPAddress, CountryCode> _geoResolve;
 
         internal FluidAnalyticBuilder(IAnalyticStore store)
         {
@@ -35,10 +33,10 @@ namespace ServerSideAnalytics
                 Method = context.Request.Method,
                 UserAgent = context.Request.Headers["User-Agent"],
                 Path = context.Request.Path.Value,
-                Country = _geoResolve?.Invoke(context.Connection.RemoteIpAddress) ?? CountryCode.World
+                CountryCode = await _store.ResolveCountryCodeAsync(context.Connection.RemoteIpAddress)
             };
 
-            await _store.StoreWebRequest(req);
+            await _store.StoreWebRequestAsync(req);
             await next.Invoke();
         }
 
@@ -58,11 +56,5 @@ namespace ServerSideAnalytics
         public FluidAnalyticBuilder ExcludeExtension(string extension) => Exclude(x => x.Request.Path.Value?.EndsWith(extension) ?? false);
 
         public FluidAnalyticBuilder ExcludeLoopBack() => Exclude(x => IPAddress.IsLoopback(x.Connection.RemoteIpAddress));
-
-        public FluidAnalyticBuilder UseGeoIp(Func<IPAddress, CountryCode> geoResolve)
-        {
-            _geoResolve = geoResolve;
-            return this;
-        }
     }
 }

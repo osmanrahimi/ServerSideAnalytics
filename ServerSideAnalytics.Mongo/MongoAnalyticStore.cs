@@ -46,7 +46,7 @@ namespace ServerSideAnalytics.Mongo
             _geoIpCollection = client.GetDatabase(url.DatabaseName ?? "default").GetCollection<MongoGeoIpRange>(geoIpCollectionName);
         }
 
-        public Task StoreWebRequest(WebRequest request)
+        public Task StoreWebRequestAsync(WebRequest request)
         {
             return _requestCollection.InsertOneAsync(Mapper.Map<MongoWebRequest>(request));
         }
@@ -105,6 +105,18 @@ namespace ServerSideAnalytics.Mongo
                 ToUp = BitConverter.ToInt64(bytesTo,8),
                 CountryCode = countryCode
             });
+        }
+
+        public async Task<CountryCode> ResolveCountryCodeAsync(IPAddress address)
+        {
+            var bytes = address.GetAddressBytes();
+            Array.Resize(ref bytes, 16);
+
+            var down = BitConverter.ToInt64(bytes, 0);
+            var up = BitConverter.ToInt64(bytes, 8);
+
+            var found = await _geoIpCollection.FindAsync(x => x.FromDown <= down && x.ToDown >= down && x.FromUp <= up && x.ToUp >= up);
+            return (await found.FirstOrDefaultAsync())?.CountryCode ?? CountryCode.World;
         }
     }
 }

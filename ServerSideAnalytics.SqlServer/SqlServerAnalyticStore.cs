@@ -35,7 +35,7 @@ namespace ServerSideAnalytics.SqlServer
             Mapper = config.CreateMapper();
         }
 
-        public async Task StoreWebRequest(WebRequest request)
+        public async Task StoreWebRequestAsync(WebRequest request)
         {
             using (var db = new SqlServerContext(_connectionString))
             {
@@ -110,6 +110,23 @@ namespace ServerSideAnalytics.SqlServer
                     ToUp = BitConverter.ToInt64(bytesTo, 8),
                     CountryCode = countryCode
                 });
+            }
+        }
+
+        public async Task<CountryCode> ResolveCountryCodeAsync(IPAddress address)
+        {
+            var bytes = address.GetAddressBytes();
+            Array.Resize(ref bytes, 16);
+
+            var down = BitConverter.ToInt64(bytes, 0);
+            var up = BitConverter.ToInt64(bytes, 8);
+
+            using (var db = new SqlServerContext(_connectionString))
+            {
+                var found = await db.GeoIpRange.FirstOrDefaultAsync(x =>
+                    x.FromDown <= down && x.ToDown >= down && x.FromUp <= up && x.ToUp >= up);
+
+                return found?.CountryCode ?? CountryCode.World;
             }
         }
     }
