@@ -28,6 +28,8 @@ namespace ServerSideAnalytics.SqLite
         [MaxLength(1024)]
         public string Referer { get; set; }
 
+        public bool IsWebSocket { get; set; }
+
         public CountryCode Country { get; set; }
     }
 }

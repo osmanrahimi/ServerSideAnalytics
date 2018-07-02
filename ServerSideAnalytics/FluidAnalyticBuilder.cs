@@ -25,6 +25,8 @@ namespace ServerSideAnalytics
                 return;
             }
 
+            
+
             var req = new WebRequest
             {
                 Timestamp = DateTime.Now,
@@ -33,6 +35,7 @@ namespace ServerSideAnalytics
                 Method = context.Request.Method,
                 UserAgent = context.Request.Headers["User-Agent"],
                 Path = context.Request.Path.Value,
+                IsWebSocket = context.WebSockets.IsWebSocketRequest,
                 CountryCode = await _store.ResolveCountryCodeAsync(context.Connection.RemoteIpAddress)
             };
 
