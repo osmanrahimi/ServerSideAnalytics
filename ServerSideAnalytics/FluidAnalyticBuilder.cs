@@ -31,7 +31,7 @@ namespace ServerSideAnalytics
             {
                 Timestamp = DateTime.Now,
                 Identity = context.UserIdentity(),
-                RemoteIpAddress = context.Connection.RemoteIpAddress.ToString(),
+                RemoteIpAddress = context.Connection.RemoteIpAddress,
                 Method = context.Request.Method,
                 UserAgent = context.Request.Headers["User-Agent"],
                 Path = context.Request.Path.Value,
