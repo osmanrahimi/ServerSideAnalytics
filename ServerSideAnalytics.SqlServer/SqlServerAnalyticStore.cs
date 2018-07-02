@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ServerSideAnalytics.SqlServer
 {
-    public class SqlServerWebRequestStore : IWebRequestStore<WebRequest>
+    public class SqlServerAnalyticStore : IAnalyticStore<WebRequest>
     {
         private readonly string _connectionString;
 
-        public SqlServerWebRequestStore(string connectionString)
+        public SqlServerAnalyticStore(string connectionString)
         {
             _connectionString = connectionString;
         }

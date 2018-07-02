@@ -7,21 +7,21 @@ using MongoDB.Driver;
 
 namespace ServerSideAnalytics.Mongo
 {
-    public class MongoRequestStore : IWebRequestStore<MongoWebRequest>
+    public class MongoAnalyticStore : IAnalyticStore<MongoWebRequest>
     {
         private readonly IMongoCollection<MongoWebRequest> _mongoCollection;
 
-        public MongoRequestStore()
+        public MongoAnalyticStore()
         {
             _mongoCollection = (new MongoClient()).GetDatabase("default").GetCollection<MongoWebRequest>("serverSideAnalytics");
         }
 
-        public MongoRequestStore(string collectionName)
+        public MongoAnalyticStore(string collectionName)
         {
             _mongoCollection = (new MongoClient()).GetDatabase("default").GetCollection<MongoWebRequest>(collectionName);
         }
 
-        public MongoRequestStore(string connectionString, string collectionName)
+        public MongoAnalyticStore(string connectionString, string collectionName)
         {
             var url = new MongoUrl(connectionString);
             var client = new MongoClient(connectionString);

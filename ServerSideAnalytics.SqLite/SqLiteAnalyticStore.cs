@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ServerSideAnalytics.SqLite
 {
-    public class SqLiteWebRequestStore : IWebRequestStore<WebRequest>
+    public class SqLiteAnalyticStore : IAnalyticStore<WebRequest>
     {
         private readonly string _connectionString;
 
-        public SqLiteWebRequestStore(string connectionString)
+        public SqLiteAnalyticStore(string connectionString)
         {
             _connectionString = connectionString;
         }

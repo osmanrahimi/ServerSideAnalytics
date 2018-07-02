@@ -66,7 +66,7 @@ namespace TestApp.SqlServer
             app.UseAuthentication();
 
             app.UseServerSideAnalytics(
-                new SqlServerWebRequestStore("Server=wczmf185129-u54;Database=test;Trusted_Connection=True;"));
+                new SqlServerAnalyticStore("Server=wczmf185129-u54;Database=test;Trusted_Connection=True;"));
 
             app.UseMvc(routes =>
             {

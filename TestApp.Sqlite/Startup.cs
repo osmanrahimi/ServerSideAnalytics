@@ -65,7 +65,7 @@ namespace TestApp.Sqlite
 
             app.UseAuthentication();
 
-            app.UseServerSideAnalytics(new SqLiteWebRequestStore("Data Source = stat.db"));
+            app.UseServerSideAnalytics(new SqLiteAnalyticStore("Data Source = stat.db"));
 
             app.UseMvc(routes =>
             {

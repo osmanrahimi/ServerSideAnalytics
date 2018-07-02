@@ -12,7 +12,7 @@ namespace ServerSideAnalytics
     public class FluidAnalyticBuilder<T> where T : IWebRequest
     {
         private readonly IApplicationBuilder _app;
-        private readonly IWebRequestStore<T> _repository;
+        private readonly IAnalyticStore<T> _repository;
         private List<Func<HttpContext, bool>> _exclude;
         private Func<IPAddress, CountryCode> _geoResolve;
 
@@ -27,7 +27,7 @@ namespace ServerSideAnalytics
                 : user;
         }
 
-        internal FluidAnalyticBuilder(IApplicationBuilder app, IWebRequestStore<T> repository)
+        internal FluidAnalyticBuilder(IApplicationBuilder app, IAnalyticStore<T> repository)
         {
             _app = app;
             _repository = repository;
