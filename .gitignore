@@ -26,3 +26,5 @@
 /TestApp.Sqlite/obj
 /TestApp.Sqlite/bin
 /TestApp.SqlServer/obj
+/TestApp.Mongo/bin
+/TestApp.Mongo/obj
