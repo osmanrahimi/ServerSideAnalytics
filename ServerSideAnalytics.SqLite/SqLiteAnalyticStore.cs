@@ -33,7 +33,7 @@ namespace ServerSideAnalytics.SqLite
             _connectionString = connectionString;
         }
 
-        public async Task AddAsync(WebRequest request)
+        public async Task StoreWebRequest(WebRequest request)
         {
             using (var db = new SqLiteContext(_connectionString))
             {

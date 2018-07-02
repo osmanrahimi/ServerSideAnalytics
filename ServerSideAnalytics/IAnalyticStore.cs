@@ -8,7 +8,7 @@ namespace ServerSideAnalytics
 {
     public interface IAnalyticStore
     {
-        Task AddAsync(WebRequest request);
+        Task StoreWebRequest(WebRequest request);
 
         Task<long> CountUniqueAsync(DateTime day);
 

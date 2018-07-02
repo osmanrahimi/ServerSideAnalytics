@@ -46,7 +46,7 @@ namespace ServerSideAnalytics.Mongo
             _geoIpCollection = client.GetDatabase(url.DatabaseName ?? "default").GetCollection<MongoGeoIpRange>(geoIpCollectionName);
         }
 
-        public Task AddAsync(WebRequest request)
+        public Task StoreWebRequest(WebRequest request)
         {
             return _requestCollection.InsertOneAsync(Mapper.Map<MongoWebRequest>(request));
         }

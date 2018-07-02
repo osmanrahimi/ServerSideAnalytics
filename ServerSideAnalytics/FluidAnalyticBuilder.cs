@@ -38,7 +38,7 @@ namespace ServerSideAnalytics
                 Country = _geoResolve?.Invoke(context.Connection.RemoteIpAddress) ?? CountryCode.World
             };
 
-            await _store.AddAsync(req);
+            await _store.StoreWebRequest(req);
             await next.Invoke();
         }
 

@@ -35,7 +35,7 @@ namespace ServerSideAnalytics.SqlServer
             Mapper = config.CreateMapper();
         }
 
-        public async Task AddAsync(WebRequest request)
+        public async Task StoreWebRequest(WebRequest request)
         {
             using (var db = new SqlServerContext(_connectionString))
             {
