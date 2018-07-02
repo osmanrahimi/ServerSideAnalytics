@@ -12,7 +12,6 @@ namespace ServerSideAnalytics
     public class FluidAnalyticBuilder
     {
         private readonly IAnalyticStore _store;
-        private readonly IApplicationBuilder _app;
         private List<Func<HttpContext, bool>> _exclude;
         private Func<IPAddress, CountryCode> _geoResolve;
 
@@ -78,7 +77,5 @@ namespace ServerSideAnalytics
             _geoResolve = geoResolve;
             return this;
         }
-
-        public IApplicationBuilder ApplicationBuilder() => _app;
     }
 }
