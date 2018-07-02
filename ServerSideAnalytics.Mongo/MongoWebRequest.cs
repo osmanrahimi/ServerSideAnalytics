@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ServerSideAnalytics.Mongo
 {
-    public class MongoWebRequest
+    internal class MongoWebRequest
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }

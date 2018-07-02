@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ServerSideAnalytics.SqlServer
 {
-    public class SqlServerAnalyticStore : IAnalyticStore
+    internal class SqlServerAnalyticStore : IAnalyticStore
     {
         private static readonly IMapper Mapper;
         private readonly string _connectionString;
