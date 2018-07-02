@@ -69,7 +69,7 @@ namespace ServerSideAnalytics.SqlServer
             }
         }
 
-        public Task<IEnumerable<string>> IpAddresses(DateTime day)
+        public Task<IEnumerable<string>> IpAddressesAsync(DateTime day)
         {
             var from = day.Date;
             var to = day + TimeSpan.FromDays(1);
@@ -85,11 +85,11 @@ namespace ServerSideAnalytics.SqlServer
             }
         }
 
-        public async Task<IEnumerable<SqlServerWebRequest>> RequestByIdentityAsync(string identity)
+        public async Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity)
         {
             using (var db = new SqlServerContext(_connectionString))
             {
-                return await db.WebRequest.Where(x => x.Identity == identity).ToListAsync();
+                return await db.WebRequest.Where(x => x.Identity == identity).Select( x=> Mapper.Map<WebRequest>(x)).ToListAsync();
             }
         }
     }

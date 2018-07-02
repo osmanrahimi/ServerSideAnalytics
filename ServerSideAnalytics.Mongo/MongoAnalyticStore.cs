@@ -66,23 +66,23 @@ namespace ServerSideAnalytics.Mongo
             return _mongoCollection.CountAsync(x => x.Timestamp >= from && x.Timestamp <= to);
         }
 
-        public Task<IEnumerable<string>> IpAddresses(DateTime day)
+        public Task<IEnumerable<string>> IpAddressesAsync(DateTime day)
         {
             var from = day.Date;
             var to = day + TimeSpan.FromDays(1);
-            return IpAddresses(from, to);
+            return IpAddressesAsync(from, to);
         }
 
-        public async Task<IEnumerable<string>> IpAddresses(DateTime from, DateTime to)
+        public async Task<IEnumerable<string>> IpAddressesAsync(DateTime from, DateTime to)
         {
             var identities = await _mongoCollection.DistinctAsync(x => x.RemoteIpAddress, x => x.Timestamp >= from && x.Timestamp <= to);
             return identities.ToEnumerable();
         }
 
-        public async Task<IEnumerable<MongoWebRequest>> RequestByIdentity(string identity)
+        public async Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity)
         {
             var identities = await _mongoCollection.FindAsync(x => x.Identity == identity);
-            return identities.ToEnumerable();
+            return identities.ToEnumerable().Select( x => Mapper.Map<WebRequest>(x));
         }
 
         public async Task<IEnumerable<MongoWebRequest>> QueryAsync(Expression<Func<MongoWebRequest, bool>> filter)

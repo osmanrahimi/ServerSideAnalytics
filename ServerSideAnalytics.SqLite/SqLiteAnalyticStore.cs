@@ -71,7 +71,7 @@ namespace ServerSideAnalytics.SqLite
             }
         }
 
-        public Task<IEnumerable<string>> IpAddresses(DateTime day)
+        public Task<IEnumerable<string>> IpAddressesAsync(DateTime day)
         {
             var from = day.Date;
             var to = day + TimeSpan.FromDays(1);
@@ -87,11 +87,11 @@ namespace ServerSideAnalytics.SqLite
             }
         }
 
-        public async Task<IEnumerable<SqliteWebRequest>> RequestByIdentityAsync(string identity)
+        public async Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity)
         {
             using (var db = new SqLiteContext(_connectionString))
             {
-                return await db.WebRequest.Where(x => x.Identity == identity).ToListAsync();
+                return await db.WebRequest.Where(x => x.Identity == identity).Select( x => Mapper.Map<WebRequest>(x)).ToListAsync();
             }
         }
     }
