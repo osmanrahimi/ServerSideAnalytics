@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Maddalena;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 namespace ServerSideAnalytics
@@ -15,20 +14,8 @@ namespace ServerSideAnalytics
         private List<Func<HttpContext, bool>> _exclude;
         private Func<IPAddress, CountryCode> _geoResolve;
 
-        private static string UserIdentity(HttpContext context)
+        internal FluidAnalyticBuilder(IAnalyticStore store)
         {
-            var user = context.User?.Identity?.Name;
-
-            return string.IsNullOrWhiteSpace(user)
-                ? (context.Request.Cookies.ContainsKey("ai_user")
-                    ? context.Request.Cookies["ai_user"]
-                    : context.Connection.Id)
-                : user;
-        }
-
-        internal FluidAnalyticBuilder(IApplicationBuilder app, IAnalyticStore store)
-        {
-            _app = app;
             _store = store;
         }
 
@@ -43,7 +30,7 @@ namespace ServerSideAnalytics
             var req = new WebRequest
             {
                 Timestamp = DateTime.Now,
-                Identity = UserIdentity(context),
+                Identity = context.UserIdentity(),
                 RemoteIpAddress = context.Connection.RemoteIpAddress.ToString(),
                 Method = context.Request.Method,
                 UserAgent = context.Request.Headers["User-Agent"],
