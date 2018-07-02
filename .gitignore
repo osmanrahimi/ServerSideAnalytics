@@ -20,3 +20,9 @@
 /ServerSideAnalytics.SqlServer/bin
 /TestApp/TestApp.SqlServer/bin/Debug/netcoreapp2.1
 /TestApp.Sqlite/bin/Debug/netcoreapp2.1
+/ServerSideAnalytics/.vs
+/TestApp/TestApp.SqlServer/obj
+/TestApp.SqlServer/bin
+/TestApp.Sqlite/obj
+/TestApp.Sqlite/bin
+/TestApp.SqlServer/obj
