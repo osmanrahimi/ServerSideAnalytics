@@ -38,16 +38,6 @@ namespace ServerSideAnalytics.SqLite
             }
         }
 
-        public async Task AddAsync(SqliteWebRequest request)
-        {
-            using (var db = new SqLiteContext(_connectionString))
-            {
-                await db.Database.EnsureCreatedAsync();
-                await db.WebRequest.AddAsync(request);
-                await db.SaveChangesAsync();
-            }
-        }
-
         public Task<long> CountUniqueAsync(DateTime day)
         {
             var from = day.Date;

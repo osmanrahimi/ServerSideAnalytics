@@ -46,8 +46,6 @@ namespace ServerSideAnalytics.Mongo
             return _mongoCollection.InsertOneAsync(Mapper.Map<MongoWebRequest>(request));
         }
 
-        public Task AddAsync(MongoWebRequest request) => _mongoCollection.InsertOneAsync(request);
-
         public Task<long> CountUniqueAsync(DateTime day)
         {
             var from = day.Date;

@@ -37,15 +37,6 @@ namespace ServerSideAnalytics.SqlServer
             }
         }
 
-        public async Task AddAsync(SqlServerWebRequest request)
-        {
-            using (var db = new SqlServerContext(_connectionString))
-            {
-                await db.WebRequest.AddAsync(request);
-                await db.SaveChangesAsync();
-            }
-        }
-
         public Task<long> CountUniqueAsync(DateTime day)
         {
             var from = day.Date;
