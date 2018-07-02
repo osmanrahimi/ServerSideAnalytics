@@ -86,16 +86,5 @@ namespace ServerSideAnalytics.Mongo
             var identities = await _mongoCollection.FindAsync(x => x.Identity == identity);
             return identities.ToEnumerable().Select( x => Mapper.Map<WebRequest>(x));
         }
-
-        public async Task<IEnumerable<MongoWebRequest>> QueryAsync(Expression<Func<MongoWebRequest, bool>> filter)
-        {
-            return (await _mongoCollection.FindAsync(filter)).ToEnumerable();
-        }
-
-        public async Task<IEnumerable<T>> DistinctAsync<T>(Expression<Func<MongoWebRequest, T>> field, Expression<Func<MongoWebRequest, bool>> filter)
-        {
-            return (await _mongoCollection.DistinctAsync(field,filter)).ToEnumerable();
-        }
-
     }
 }
