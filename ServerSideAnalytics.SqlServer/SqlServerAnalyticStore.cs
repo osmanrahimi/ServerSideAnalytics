@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Maddalena;
 using Microsoft.EntityFrameworkCore;
 
 namespace ServerSideAnalytics.SqlServer
@@ -87,6 +88,28 @@ namespace ServerSideAnalytics.SqlServer
             using (var db = new SqlServerContext(_connectionString))
             {
                 return await db.WebRequest.Where(x => x.Identity == identity).Select( x=> Mapper.Map<WebRequest>(x)).ToListAsync();
+            }
+        }
+
+        public async Task StoreGeoIpRangeAsync(IPAddress from, IPAddress to, CountryCode countryCode)
+        {
+            var bytesFrom = from.GetAddressBytes();
+            var bytesTo = to.GetAddressBytes();
+
+            Array.Resize(ref bytesFrom, 16);
+            Array.Resize(ref bytesTo, 16);
+
+            using (var db = new SqlServerContext(_connectionString))
+            {
+                await db.GeoIpRange.AddAsync(new SqlServerGeoIpRange
+                {
+                    FromDown = BitConverter.ToInt64(bytesFrom, 0),
+                    FromUp = BitConverter.ToInt64(bytesFrom, 8),
+
+                    ToDown = BitConverter.ToInt64(bytesTo, 0),
+                    ToUp = BitConverter.ToInt64(bytesTo, 8),
+                    CountryCode = countryCode
+                });
             }
         }
     }

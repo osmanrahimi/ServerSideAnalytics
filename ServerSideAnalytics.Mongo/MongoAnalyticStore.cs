@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Maddalena;
 using MongoDB.Driver;
 
 namespace ServerSideAnalytics.Mongo
@@ -11,7 +12,8 @@ namespace ServerSideAnalytics.Mongo
     public class MongoAnalyticStore : IAnalyticStore
     {
         private static readonly IMapper Mapper;
-        private readonly IMongoCollection<MongoWebRequest> _mongoCollection;
+        private readonly IMongoCollection<MongoWebRequest> _requestCollection;
+        private readonly IMongoCollection<MongoGeoIpRange> _geoIpCollection;
 
         static MongoAnalyticStore()
         {
@@ -27,26 +29,26 @@ namespace ServerSideAnalytics.Mongo
             Mapper = config.CreateMapper();
         }
 
-        public MongoAnalyticStore()
+        public MongoAnalyticStore() : this("mongodb://localhost/default", "SsaRequests", "SsaGeoIp")
         {
-            _mongoCollection = (new MongoClient()).GetDatabase("default").GetCollection<MongoWebRequest>("serverSideAnalytics");
         }
 
-        public MongoAnalyticStore(string collectionName)
+        public MongoAnalyticStore(string requestCollectionName, string geoIpCollectionName) : this("mongodb://localhost/default", requestCollectionName, geoIpCollectionName)
         {
-            _mongoCollection = (new MongoClient()).GetDatabase("default").GetCollection<MongoWebRequest>(collectionName);
+            
         }
 
-        public MongoAnalyticStore(string connectionString, string collectionName)
+        public MongoAnalyticStore(string connectionString, string requestCollectionName, string geoIpCollectionName)
         {
             var url = new MongoUrl(connectionString);
             var client = new MongoClient(connectionString);
-            _mongoCollection = client.GetDatabase(url.DatabaseName ?? "default").GetCollection<MongoWebRequest>(collectionName);
+            _requestCollection = client.GetDatabase(url.DatabaseName ?? "default").GetCollection<MongoWebRequest>(requestCollectionName);
+            _geoIpCollection = client.GetDatabase(url.DatabaseName ?? "default").GetCollection<MongoGeoIpRange>(geoIpCollectionName);
         }
 
         public Task AddAsync(WebRequest request)
         {
-            return _mongoCollection.InsertOneAsync(Mapper.Map<MongoWebRequest>(request));
+            return _requestCollection.InsertOneAsync(Mapper.Map<MongoWebRequest>(request));
         }
 
         public Task<long> CountUniqueAsync(DateTime day)
@@ -58,13 +60,13 @@ namespace ServerSideAnalytics.Mongo
 
         public async Task<long> CountUniqueAsync(DateTime from, DateTime to)
         {
-            var identities = await _mongoCollection.DistinctAsync(x => x.Identity, x => x.Timestamp >= from && x.Timestamp <= to);
+            var identities = await _requestCollection.DistinctAsync(x => x.Identity, x => x.Timestamp >= from && x.Timestamp <= to);
             return identities.ToEnumerable().Count();
         }
 
         public Task<long> CountAsync(DateTime from, DateTime to)
         {
-            return _mongoCollection.CountAsync(x => x.Timestamp >= from && x.Timestamp <= to);
+            return _requestCollection.CountDocumentsAsync(x => x.Timestamp >= from && x.Timestamp <= to);
         }
 
         public Task<IEnumerable<string>> IpAddressesAsync(DateTime day)
@@ -76,14 +78,33 @@ namespace ServerSideAnalytics.Mongo
 
         public async Task<IEnumerable<string>> IpAddressesAsync(DateTime from, DateTime to)
         {
-            var identities = await _mongoCollection.DistinctAsync(x => x.RemoteIpAddress, x => x.Timestamp >= from && x.Timestamp <= to);
+            var identities = await _requestCollection.DistinctAsync(x => x.RemoteIpAddress, x => x.Timestamp >= from && x.Timestamp <= to);
             return identities.ToEnumerable();
         }
 
         public async Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity)
         {
-            var identities = await _mongoCollection.FindAsync(x => x.Identity == identity);
+            var identities = await _requestCollection.FindAsync(x => x.Identity == identity);
             return identities.ToEnumerable().Select( x => Mapper.Map<WebRequest>(x));
+        }
+
+        public Task StoreGeoIpRangeAsync(IPAddress from, IPAddress to, CountryCode countryCode)
+        {
+            var bytesFrom = from.GetAddressBytes();
+            var bytesTo = to.GetAddressBytes();
+
+            Array.Resize(ref bytesFrom, 16);
+            Array.Resize(ref bytesTo, 16);
+
+            return _geoIpCollection.InsertOneAsync(new MongoGeoIpRange
+            {
+                FromDown = BitConverter.ToInt64(bytesFrom,0),
+                FromUp = BitConverter.ToInt64(bytesFrom,8),
+
+                ToDown = BitConverter.ToInt64(bytesTo,0),
+                ToUp = BitConverter.ToInt64(bytesTo,8),
+                CountryCode = countryCode
+            });
         }
     }
 }

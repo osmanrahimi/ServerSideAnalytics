@@ -21,6 +21,8 @@ namespace ServerSideAnalytics.SqlServer
 
         public DbSet<SqlServerWebRequest> WebRequest { get; set; }
 
+        public DbSet<SqlServerGeoIpRange> GeoIpRange { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

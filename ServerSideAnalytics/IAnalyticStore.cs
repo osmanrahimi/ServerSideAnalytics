@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
+using Maddalena;
 
 namespace ServerSideAnalytics
 {
@@ -19,5 +21,7 @@ namespace ServerSideAnalytics
         Task<IEnumerable<string>> IpAddressesAsync(DateTime from, DateTime to);
 
         Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity);
+
+        Task StoreGeoIpRangeAsync(IPAddress from, IPAddress to, CountryCode countryCode);
     }
 }
