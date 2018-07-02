@@ -2,22 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace ServerSideAnalytics.SqLite
 {
-    public class SqLiteAnalyticStore : IAnalyticStore<WebRequest>
+    public class SqLiteAnalyticStore : IAnalyticStore
     {
+        private static readonly IMapper Mapper;
         private readonly string _connectionString;
+
+        static SqLiteAnalyticStore()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<WebRequest, SqliteWebRequest>();
+                cfg.CreateMap<SqliteWebRequest, WebRequest>();
+            });
+
+            Mapper = config.CreateMapper();
+        }
 
         public SqLiteAnalyticStore(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public WebRequest GetNew() => new WebRequest();
-
         public async Task AddAsync(WebRequest request)
+        {
+            using (var db = new SqLiteContext(_connectionString))
+            {
+                await db.Database.EnsureCreatedAsync();
+                await db.WebRequest.AddAsync(Mapper.Map<SqliteWebRequest>(request));
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddAsync(SqliteWebRequest request)
         {
             using (var db = new SqLiteContext(_connectionString))
             {
@@ -66,7 +87,7 @@ namespace ServerSideAnalytics.SqLite
             }
         }
 
-        public async Task<IEnumerable<IWebRequest>> RequestByIdentityAsync(string identity)
+        public async Task<IEnumerable<SqliteWebRequest>> RequestByIdentityAsync(string identity)
         {
             using (var db = new SqLiteContext(_connectionString))
             {

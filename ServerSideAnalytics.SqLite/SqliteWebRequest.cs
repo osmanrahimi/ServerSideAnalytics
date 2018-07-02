@@ -4,7 +4,7 @@ using Maddalena;
 
 namespace ServerSideAnalytics.SqLite
 {
-    public class WebRequest : IWebRequest
+    public class SqliteWebRequest
     {
         public long Id { get; set; }
 

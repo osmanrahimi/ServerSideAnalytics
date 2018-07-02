@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace ServerSideAnalytics.SqlServer
 {
-    public class SqlServerAnalyticStore : IAnalyticStore<WebRequest>
+    public class SqlServerAnalyticStore : IAnalyticStore
     {
+        private static readonly IMapper Mapper;
         private readonly string _connectionString;
 
         public SqlServerAnalyticStore(string connectionString)
@@ -15,9 +17,27 @@ namespace ServerSideAnalytics.SqlServer
             _connectionString = connectionString;
         }
 
-        public WebRequest GetNew() => new WebRequest();
+        static SqlServerAnalyticStore()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<WebRequest, SqlServerWebRequest>();
+                cfg.CreateMap<SqlServerWebRequest, WebRequest>();
+            });
+
+            Mapper = config.CreateMapper();
+        }
 
         public async Task AddAsync(WebRequest request)
+        {
+            using (var db = new SqlServerContext(_connectionString))
+            {
+                await db.WebRequest.AddAsync(Mapper.Map<SqlServerWebRequest>(request));
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddAsync(SqlServerWebRequest request)
         {
             using (var db = new SqlServerContext(_connectionString))
             {
@@ -65,7 +85,7 @@ namespace ServerSideAnalytics.SqlServer
             }
         }
 
-        public async Task<IEnumerable<IWebRequest>> RequestByIdentityAsync(string identity)
+        public async Task<IEnumerable<SqlServerWebRequest>> RequestByIdentityAsync(string identity)
         {
             using (var db = new SqlServerContext(_connectionString))
             {

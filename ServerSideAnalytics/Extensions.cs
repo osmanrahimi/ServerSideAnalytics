@@ -4,9 +4,9 @@ namespace ServerSideAnalytics
 {
     public static class Extensions
     {
-        public static FluidAnalyticBuilder<T> UseServerSideAnalytics<T>(this IApplicationBuilder app, IAnalyticStore<T> repository) where T : IWebRequest
+        public static FluidAnalyticBuilder UseServerSideAnalytics(this IApplicationBuilder app, IAnalyticStore repository)
         {
-            var builder = new FluidAnalyticBuilder<T>(app,repository);
+            var builder = new FluidAnalyticBuilder(app,repository);
             app.Use(builder.Run);
             return builder;
         }

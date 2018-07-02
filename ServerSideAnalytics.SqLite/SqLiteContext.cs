@@ -19,12 +19,12 @@ namespace ServerSideAnalytics.SqLite
             _table = table;
         }
 
-        public DbSet<WebRequest> WebRequest { get; set; }
+        public DbSet<SqliteWebRequest> WebRequest { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<WebRequest>(b => { b.ToTable(_table); });
+            modelBuilder.Entity<SqliteWebRequest>(b => { b.ToTable(_table); });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

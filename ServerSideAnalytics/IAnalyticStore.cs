@@ -2,9 +2,8 @@
 
 namespace ServerSideAnalytics
 {
-    public interface IAnalyticStore<T> where T : IWebRequest
+    public interface IAnalyticStore
     {
-        T GetNew();
-        Task AddAsync(T request);
+        Task AddAsync(WebRequest request);
     }
 }

@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace ServerSideAnalytics
 {
-    public class FluidAnalyticBuilder<T> where T : IWebRequest
+    public class FluidAnalyticBuilder
     {
+        private readonly IAnalyticStore _store;
         private readonly IApplicationBuilder _app;
-        private readonly IAnalyticStore<T> _repository;
         private List<Func<HttpContext, bool>> _exclude;
         private Func<IPAddress, CountryCode> _geoResolve;
 
@@ -27,10 +27,10 @@ namespace ServerSideAnalytics
                 : user;
         }
 
-        internal FluidAnalyticBuilder(IApplicationBuilder app, IAnalyticStore<T> repository)
+        internal FluidAnalyticBuilder(IApplicationBuilder app, IAnalyticStore store)
         {
             _app = app;
-            _repository = repository;
+            _store = store;
         }
 
         internal async Task Run(HttpContext context, Func<Task> next)
@@ -41,39 +41,39 @@ namespace ServerSideAnalytics
                 return;
             }
 
-            var req = _repository.GetNew();
-            req.Timestamp = DateTime.Now;
+            var req = new WebRequest
+            {
+                Timestamp = DateTime.Now,
+                Identity = UserIdentity(context),
+                RemoteIpAddress = context.Connection.RemoteIpAddress.ToString(),
+                Method = context.Request.Method,
+                UserAgent = context.Request.Headers["User-Agent"],
+                Path = context.Request.Path.Value,
+                Country = _geoResolve?.Invoke(context.Connection.RemoteIpAddress) ?? CountryCode.World
+            };
 
-            req.Identity = UserIdentity(context);
-            req.RemoteIpAddress = context.Connection.RemoteIpAddress.ToString();
-            req.Method = context.Request.Method;
-            req.UserAgent = context.Request.Headers["User-Agent"];
-            req.Path = context.Request.Path.Value;
-
-            req.Country = _geoResolve?.Invoke(context.Connection.RemoteIpAddress) ?? CountryCode.World;
-
-            await _repository.AddAsync(req);
+            await _store.AddAsync(req);
             await next.Invoke();
         }
 
-        public FluidAnalyticBuilder<T> Exclude(Func<HttpContext, bool> filter)
+        public FluidAnalyticBuilder Exclude(Func<HttpContext, bool> filter)
         {
             if(_exclude == null) _exclude = new List<Func<HttpContext, bool>>();
             _exclude.Add(filter);
             return this;
         }
 
-        public FluidAnalyticBuilder<T> Exclude(IPAddress ip) => Exclude(x => Equals(x.Connection.RemoteIpAddress, ip));
+        public FluidAnalyticBuilder Exclude(IPAddress ip) => Exclude(x => Equals(x.Connection.RemoteIpAddress, ip));
 
-        public FluidAnalyticBuilder<T> ExcludePath(string path) => Exclude(x => Equals(x.Request.Path.StartsWithSegments(path)));
+        public FluidAnalyticBuilder ExcludePath(string path) => Exclude(x => Equals(x.Request.Path.StartsWithSegments(path)));
 
-        public FluidAnalyticBuilder<T> LimitToPath(string path) => Exclude(x => !Equals(x.Request.Path.StartsWithSegments(path)));
+        public FluidAnalyticBuilder LimitToPath(string path) => Exclude(x => !Equals(x.Request.Path.StartsWithSegments(path)));
 
-        public FluidAnalyticBuilder<T> ExcludeExtension(string extension) => Exclude(x => x.Request.Path.Value?.EndsWith(extension) ?? false);
+        public FluidAnalyticBuilder ExcludeExtension(string extension) => Exclude(x => x.Request.Path.Value?.EndsWith(extension) ?? false);
 
-        public FluidAnalyticBuilder<T> ExcludeLoopBack() => Exclude(x => IPAddress.IsLoopback(x.Connection.RemoteIpAddress));
+        public FluidAnalyticBuilder ExcludeLoopBack() => Exclude(x => IPAddress.IsLoopback(x.Connection.RemoteIpAddress));
 
-        public FluidAnalyticBuilder<T> UseGeoIp(Func<IPAddress, CountryCode> geoResolve)
+        public FluidAnalyticBuilder UseGeoIp(Func<IPAddress, CountryCode> geoResolve)
         {
             _geoResolve = geoResolve;
             return this;

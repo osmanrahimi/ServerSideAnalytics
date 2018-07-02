@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 using MongoDB.Driver;
 
 namespace ServerSideAnalytics.Mongo
 {
-    public class MongoAnalyticStore : IAnalyticStore<MongoWebRequest>
+    public class MongoAnalyticStore : IAnalyticStore
     {
+        private static readonly IMapper Mapper;
         private readonly IMongoCollection<MongoWebRequest> _mongoCollection;
+
+        static MongoAnalyticStore()
+        {
+             var config = new MapperConfiguration(cfg =>
+             {
+                 cfg.CreateMap<WebRequest, MongoWebRequest>();
+                 cfg.CreateMap<MongoWebRequest, WebRequest>();
+             });
+
+            Mapper = config.CreateMapper();
+        }
 
         public MongoAnalyticStore()
         {
@@ -28,7 +41,10 @@ namespace ServerSideAnalytics.Mongo
             _mongoCollection = client.GetDatabase(url.DatabaseName ?? "default").GetCollection<MongoWebRequest>(collectionName);
         }
 
-        public MongoWebRequest GetNew() => new MongoWebRequest();
+        public Task AddAsync(WebRequest request)
+        {
+            return _mongoCollection.InsertOneAsync(Mapper.Map<MongoWebRequest>(request));
+        }
 
         public Task AddAsync(MongoWebRequest request) => _mongoCollection.InsertOneAsync(request);
 
@@ -63,13 +79,13 @@ namespace ServerSideAnalytics.Mongo
             return identities.ToEnumerable();
         }
 
-        public async Task<IEnumerable<IWebRequest>> RequestByIdentity(string identity)
+        public async Task<IEnumerable<MongoWebRequest>> RequestByIdentity(string identity)
         {
             var identities = await _mongoCollection.FindAsync(x => x.Identity == identity);
             return identities.ToEnumerable();
         }
 
-        public async Task<IEnumerable<IWebRequest>> QueryAsync(Expression<Func<MongoWebRequest, bool>> filter)
+        public async Task<IEnumerable<MongoWebRequest>> QueryAsync(Expression<Func<MongoWebRequest, bool>> filter)
         {
             return (await _mongoCollection.FindAsync(filter)).ToEnumerable();
         }
@@ -78,5 +94,6 @@ namespace ServerSideAnalytics.Mongo
         {
             return (await _mongoCollection.DistinctAsync(field,filter)).ToEnumerable();
         }
+
     }
 }
