@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +17,11 @@ namespace ServerSideAnalytics.SqLite
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<WebRequest, SqliteWebRequest>();
-                cfg.CreateMap<SqliteWebRequest, WebRequest>();
+                cfg.CreateMap<WebRequest, SqliteWebRequest>()
+                    .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => req.RemoteIpAddress.ToString()));
+
+                cfg.CreateMap<SqliteWebRequest, WebRequest>()
+                    .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => IPAddress.Parse(req.RemoteIpAddress)));
             });
 
             Mapper = config.CreateMapper();

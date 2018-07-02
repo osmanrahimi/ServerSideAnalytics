@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,14 @@ namespace ServerSideAnalytics.SqlServer
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<WebRequest, SqlServerWebRequest>();
-                cfg.CreateMap<SqlServerWebRequest, WebRequest>();
+                cfg.CreateMap<WebRequest, SqlServerWebRequest>()
+                    .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => req.RemoteIpAddress.ToString()));
+
+                cfg.CreateMap<SqlServerWebRequest, WebRequest>()
+                    .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => IPAddress.Parse(req.RemoteIpAddress)));
             });
+
+            config.AssertConfigurationIsValid();
 
             Mapper = config.CreateMapper();
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using MongoDB.Driver;
@@ -17,8 +18,11 @@ namespace ServerSideAnalytics.Mongo
         {
              var config = new MapperConfiguration(cfg =>
              {
-                 cfg.CreateMap<WebRequest, MongoWebRequest>();
-                 cfg.CreateMap<MongoWebRequest, WebRequest>();
+                 cfg.CreateMap<WebRequest, MongoWebRequest>()
+                     .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => req.RemoteIpAddress.ToString()));
+
+                 cfg.CreateMap<MongoWebRequest, WebRequest>()
+                     .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => IPAddress.Parse(req.RemoteIpAddress)));
              });
 
             Mapper = config.CreateMapper();
