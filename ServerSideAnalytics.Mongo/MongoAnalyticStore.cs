@@ -12,8 +12,10 @@ namespace ServerSideAnalytics.Mongo
     public class MongoAnalyticStore : IAnalyticStore
     {
         private static readonly IMapper Mapper;
-        private readonly IMongoCollection<MongoWebRequest> _requestCollection;
-        private readonly IMongoCollection<MongoGeoIpRange> _geoIpCollection;
+
+        private readonly MongoUrl _url;
+        private IMongoCollection<MongoWebRequest> _requestCollection;
+        private IMongoCollection<MongoGeoIpRange> _geoIpCollection;
 
         static MongoAnalyticStore()
         {
@@ -29,21 +31,32 @@ namespace ServerSideAnalytics.Mongo
             Mapper = config.CreateMapper();
         }
 
-        public MongoAnalyticStore() : this("mongodb://localhost/default", "SsaRequests", "SsaGeoIp")
+        public MongoAnalyticStore() : this("mongodb://localhost/default")
         {
         }
 
-        public MongoAnalyticStore(string requestCollectionName, string geoIpCollectionName) : this("mongodb://localhost/default", requestCollectionName, geoIpCollectionName)
+        public MongoAnalyticStore(string connectionString)
         {
-            
+            _url = new MongoUrl(connectionString);
+            RequestCollection("SSARequest");
+            GeoIpCollection("SSAGeoIP");
         }
 
-        public MongoAnalyticStore(string connectionString, string requestCollectionName, string geoIpCollectionName)
+        public MongoAnalyticStore RequestCollection(string tablename)
         {
-            var url = new MongoUrl(connectionString);
-            var client = new MongoClient(connectionString);
-            _requestCollection = client.GetDatabase(url.DatabaseName ?? "default").GetCollection<MongoWebRequest>(requestCollectionName);
-            _geoIpCollection = client.GetDatabase(url.DatabaseName ?? "default").GetCollection<MongoGeoIpRange>(geoIpCollectionName);
+            var client = new MongoClient(_url);
+            _requestCollection = client.GetDatabase(_url.DatabaseName ?? "default")
+                .GetCollection<MongoWebRequest>(tablename);
+
+            return this;
+        }
+
+        public MongoAnalyticStore GeoIpCollection(string tablename)
+        {
+            var client = new MongoClient(_url);
+            _geoIpCollection = client.GetDatabase(_url.DatabaseName ?? "default")
+                .GetCollection<MongoGeoIpRange>(tablename);
+            return this;
         }
 
         public Task StoreWebRequestAsync(WebRequest request)

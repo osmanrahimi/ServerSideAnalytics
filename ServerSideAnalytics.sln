@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp.Sqlite", "TestApp.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp.SqlServer", "TestApp.SqlServer\TestApp.SqlServer.csproj", "{4D5FBF71-B626-4152-961A-B6A10C53ADAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp.Mongo", "TestApp.Mongo\TestApp.Mongo.csproj", "{6A4EE366-9560-4019-9239-CFF3950A1903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp.Mongo", "TestApp.Mongo\TestApp.Mongo.csproj", "{6A4EE366-9560-4019-9239-CFF3950A1903}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
