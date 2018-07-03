@@ -133,5 +133,9 @@ namespace ServerSideAnalytics.Mongo
             var found = await _geoIpCollection.FindAsync(x => x.FromDown <= down && x.ToDown >= down && x.FromUp <= up && x.ToUp >= up);
             return (await found.FirstOrDefaultAsync())?.CountryCode ?? CountryCode.World;
         }
+
+        public Task PurgeRequestAsync() => _requestCollection.DeleteManyAsync(x => true);
+
+        public Task PurgeGeoIpAsync() => _geoIpCollection.DeleteManyAsync(x => true);
     }
 }

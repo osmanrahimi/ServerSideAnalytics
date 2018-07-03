@@ -25,5 +25,9 @@ namespace ServerSideAnalytics
         Task StoreGeoIpRangeAsync(IPAddress from, IPAddress to, CountryCode countryCode);
 
         Task<CountryCode> ResolveCountryCodeAsync(IPAddress address);
+
+        Task PurgeRequestAsync();
+
+        Task PurgeGeoIpAsync();
     }
 }

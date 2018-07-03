@@ -13,7 +13,6 @@ namespace ServerSideAnalytics.SqlServer
     {
         private static readonly IMapper Mapper;
         private readonly string _connectionString;
-
         private string _requestTable = "SSARequest";
         private string _geoIpTable = "SSAGeoIP";
 
@@ -22,10 +21,12 @@ namespace ServerSideAnalytics.SqlServer
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<WebRequest, SqlServerWebRequest>()
-                    .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => req.RemoteIpAddress.ToString()));
+                    .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => req.RemoteIpAddress.ToString()))
+                    .ForMember(dest => dest.Id, x => x.Ignore());
 
                 cfg.CreateMap<SqlServerWebRequest, WebRequest>()
-                    .ForMember(dest => dest.RemoteIpAddress, x => x.MapFrom(req => IPAddress.Parse(req.RemoteIpAddress)));
+                    .ForMember(dest => dest.RemoteIpAddress,
+                        x => x.MapFrom(req => IPAddress.Parse(req.RemoteIpAddress)));
             });
 
             config.AssertConfigurationIsValid();
@@ -33,7 +34,12 @@ namespace ServerSideAnalytics.SqlServer
             Mapper = config.CreateMapper();
         }
 
-        private SqlServerContext GetContext() => new SqlServerContext(_connectionString, _requestTable, _geoIpTable);
+        private SqlServerContext GetContext()
+        {
+            var db = new SqlServerContext(_connectionString, _requestTable, _geoIpTable);
+            db.Database.EnsureCreated();
+            return db;
+        } 
         
         public SqlServerAnalyticStore(string connectionString)
         {
@@ -131,6 +137,7 @@ namespace ServerSideAnalytics.SqlServer
                     ToUp = BitConverter.ToInt64(bytesTo, 8),
                     CountryCode = countryCode
                 });
+                await db.SaveChangesAsync();
             }
         }
 
@@ -148,6 +155,26 @@ namespace ServerSideAnalytics.SqlServer
                     x.FromDown <= down && x.ToDown >= down && x.FromUp <= up && x.ToUp >= up);
 
                 return found?.CountryCode ?? CountryCode.World;
+            }
+        }
+
+        public async Task PurgeRequestAsync()
+        {
+            using (var db = GetContext())
+            {
+                await db.Database.EnsureCreatedAsync();
+                db.WebRequest.RemoveRange(db.WebRequest);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task PurgeGeoIpAsync()
+        {
+            using (var db = GetContext())
+            {
+                await db.Database.EnsureCreatedAsync();
+                db.GeoIpRange.RemoveRange(db.GeoIpRange);
+                await db.SaveChangesAsync();
             }
         }
     }

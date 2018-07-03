@@ -121,6 +121,8 @@ namespace ServerSideAnalytics.SqLite
 
             using (var db = GetContext())
             {
+                await db.Database.EnsureCreatedAsync();
+
                 await db.GeoIpRange.AddAsync(new SqLiteGeoIpRange
                 {
                     FromDown = BitConverter.ToInt64(bytesFrom, 0),
@@ -130,6 +132,8 @@ namespace ServerSideAnalytics.SqLite
                     ToUp = BitConverter.ToInt64(bytesTo, 8),
                     CountryCode = countryCode
                 });
+
+                await db.SaveChangesAsync();
             }
         }
 
@@ -147,6 +151,25 @@ namespace ServerSideAnalytics.SqLite
                     x.FromDown <= down && x.ToDown >= down && x.FromUp <= up && x.ToUp >= up);
 
                 return found?.CountryCode ?? CountryCode.World;
+            }
+        }
+
+        public async Task PurgeRequestAsync()
+        {
+            using (var db = GetContext())
+            {
+                db.WebRequest.RemoveRange(db.WebRequest);
+                await db.SaveChangesAsync();
+            }
+
+        }
+
+        public async Task PurgeGeoIpAsync()
+        {
+            using (var db = GetContext())
+            {
+                db.GeoIpRange.RemoveRange(db.GeoIpRange);
+                await db.SaveChangesAsync();
             }
         }
     }
