@@ -8,13 +8,6 @@ namespace ServerSideAnalytics.SqLite
         private readonly string _geoIpTable;
         private readonly string _connectionString;
 
-        public SqLiteContext(string connectionString)
-        {
-            _connectionString = connectionString;
-            _requestTable = "WebRequest";
-            _geoIpTable = "GeoIp";
-        }
-
         public SqLiteContext(string connectionString, string requestTable, string geoIpTable)
         {
             _connectionString = connectionString;
@@ -30,6 +23,7 @@ namespace ServerSideAnalytics.SqLite
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<SqliteWebRequest>(b => { b.ToTable(_requestTable); });
+            modelBuilder.Entity<SqLiteGeoIpRange>(b => { b.ToTable(_geoIpTable); });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

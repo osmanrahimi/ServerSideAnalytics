@@ -14,10 +14,8 @@ namespace ServerSideAnalytics.SqlServer
         private static readonly IMapper Mapper;
         private readonly string _connectionString;
 
-        public SqlServerAnalyticStore(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
+        private string _requestTable = "SSARequest";
+        private string _geoIpTable = "SSAGeoIP";
 
         static SqlServerAnalyticStore()
         {
@@ -35,9 +33,28 @@ namespace ServerSideAnalytics.SqlServer
             Mapper = config.CreateMapper();
         }
 
+        private SqlServerContext GetContext() => new SqlServerContext(_connectionString, _requestTable, _geoIpTable);
+        
+        public SqlServerAnalyticStore(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public SqlServerAnalyticStore RequestTable(string tablename)
+        {
+            _requestTable = tablename;
+            return this;
+        }
+
+        public SqlServerAnalyticStore GeoIpTable(string tablename)
+        {
+            _geoIpTable = tablename;
+            return this;
+        }
+
         public async Task StoreWebRequestAsync(WebRequest request)
         {
-            using (var db = new SqlServerContext(_connectionString))
+            using (var db = GetContext())
             {
                 await db.WebRequest.AddAsync(Mapper.Map<SqlServerWebRequest>(request));
                 await db.SaveChangesAsync();
@@ -53,7 +70,7 @@ namespace ServerSideAnalytics.SqlServer
 
         public async Task<long> CountUniqueAsync(DateTime from, DateTime to)
         {
-            using (var db = new SqlServerContext(_connectionString))
+            using (var db = GetContext())
             {
                 return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).GroupBy(x => x.Identity).CountAsync();
             }
@@ -61,7 +78,7 @@ namespace ServerSideAnalytics.SqlServer
 
         public async Task<long> CountAsync(DateTime from, DateTime to)
         {
-            using (var db = new SqlServerContext(_connectionString))
+            using (var db = GetContext())
             {
                 return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).CountAsync();
             }
@@ -76,7 +93,7 @@ namespace ServerSideAnalytics.SqlServer
 
         public async Task<IEnumerable<string>> IpAddressesAsync(DateTime from, DateTime to)
         {
-            using (var db = new SqlServerContext(_connectionString))
+            using (var db = GetContext())
             {
                 return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).Select(x => x.Identity)
                     .ToListAsync();
@@ -85,7 +102,7 @@ namespace ServerSideAnalytics.SqlServer
 
         public async Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity)
         {
-            using (var db = new SqlServerContext(_connectionString))
+            using (var db = GetContext())
             {
                 return await db.WebRequest.Where(x => x.Identity == identity).Select( x=> Mapper.Map<WebRequest>(x)).ToListAsync();
             }
@@ -99,7 +116,7 @@ namespace ServerSideAnalytics.SqlServer
             Array.Resize(ref bytesFrom, 16);
             Array.Resize(ref bytesTo, 16);
 
-            using (var db = new SqlServerContext(_connectionString))
+            using (var db = GetContext())
             {
                 await db.GeoIpRange.AddAsync(new SqlServerGeoIpRange
                 {
@@ -121,7 +138,7 @@ namespace ServerSideAnalytics.SqlServer
             var down = BitConverter.ToInt64(bytes, 0);
             var up = BitConverter.ToInt64(bytes, 8);
 
-            using (var db = new SqlServerContext(_connectionString))
+            using (var db = GetContext())
             {
                 var found = await db.GeoIpRange.FirstOrDefaultAsync(x =>
                     x.FromDown <= down && x.ToDown >= down && x.FromUp <= up && x.ToUp >= up);
