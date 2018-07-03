@@ -82,17 +82,19 @@ namespace ServerSideAnalytics.Mongo
             return _requestCollection.CountDocumentsAsync(x => x.Timestamp >= from && x.Timestamp <= to);
         }
 
-        public Task<IEnumerable<string>> IpAddressesAsync(DateTime day)
+        public Task<IEnumerable<IPAddress>> IpAddressesAsync(DateTime day)
         {
             var from = day.Date;
             var to = day + TimeSpan.FromDays(1);
             return IpAddressesAsync(from, to);
         }
 
-        public async Task<IEnumerable<string>> IpAddressesAsync(DateTime from, DateTime to)
+        public async Task<IEnumerable<IPAddress>> IpAddressesAsync(DateTime from, DateTime to)
         {
-            var identities = await _requestCollection.DistinctAsync(x => x.RemoteIpAddress, x => x.Timestamp >= from && x.Timestamp <= to);
-            return identities.ToEnumerable();
+            var ips = await _requestCollection.DistinctAsync(x => x.RemoteIpAddress, x => x.Timestamp >= from && x.Timestamp <= to);
+            return ips.ToEnumerable()
+                .Select(IPAddress.Parse)
+                .ToArray();
         }
 
         public async Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity)

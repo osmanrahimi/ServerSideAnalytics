@@ -84,19 +84,23 @@ namespace ServerSideAnalytics.SqlServer
             }
         }
 
-        public Task<IEnumerable<string>> IpAddressesAsync(DateTime day)
+        public Task<IEnumerable<IPAddress>> IpAddressesAsync(DateTime day)
         {
             var from = day.Date;
             var to = day + TimeSpan.FromDays(1);
             return IpAddressesAsync(from, to);
         }
 
-        public async Task<IEnumerable<string>> IpAddressesAsync(DateTime from, DateTime to)
+        public async Task<IEnumerable<IPAddress>> IpAddressesAsync(DateTime from, DateTime to)
         {
             using (var db = GetContext())
             {
-                return await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to).Select(x => x.Identity)
+                var ips = await db.WebRequest.Where(x => x.Timestamp >= from && x.Timestamp <= to)
+                    .Select(x => x.RemoteIpAddress)
+                    .Distinct()
                     .ToListAsync();
+
+                return ips.Select(IPAddress.Parse).ToArray();
             }
         }
 

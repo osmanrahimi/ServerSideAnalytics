@@ -16,9 +16,9 @@ namespace ServerSideAnalytics
 
         Task<long> CountAsync(DateTime from, DateTime to);
 
-        Task<IEnumerable<string>> IpAddressesAsync(DateTime day);
+        Task<IEnumerable<IPAddress>> IpAddressesAsync(DateTime day);
 
-        Task<IEnumerable<string>> IpAddressesAsync(DateTime from, DateTime to);
+        Task<IEnumerable<IPAddress>> IpAddressesAsync(DateTime from, DateTime to);
 
         Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity);
 

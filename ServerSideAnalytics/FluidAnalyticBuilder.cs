@@ -25,8 +25,6 @@ namespace ServerSideAnalytics
                 return;
             }
 
-            
-
             var req = new WebRequest
             {
                 Timestamp = DateTime.Now,
