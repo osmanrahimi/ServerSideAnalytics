@@ -64,14 +64,14 @@ namespace ServerSideAnalytics.Mongo
             return _requestCollection.InsertOneAsync(Mapper.Map<MongoWebRequest>(request));
         }
 
-        public Task<long> CountUniqueAsync(DateTime day)
+        public Task<long> CountUniqueIndentitiesAsync(DateTime day)
         {
             var from = day.Date;
             var to = day + TimeSpan.FromDays(1);
-            return CountUniqueAsync(from, to);
+            return CountUniqueIndentitiesAsync(from, to);
         }
 
-        public async Task<long> CountUniqueAsync(DateTime from, DateTime to)
+        public async Task<long> CountUniqueIndentitiesAsync(DateTime from, DateTime to)
         {
             var identities = await _requestCollection.DistinctAsync(x => x.Identity, x => x.Timestamp >= from && x.Timestamp <= to);
             return identities.ToEnumerable().Count();

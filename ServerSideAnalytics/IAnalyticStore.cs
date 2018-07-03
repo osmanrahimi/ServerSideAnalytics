@@ -10,9 +10,9 @@ namespace ServerSideAnalytics
     {
         Task StoreWebRequestAsync(WebRequest request);
 
-        Task<long> CountUniqueAsync(DateTime day);
+        Task<long> CountUniqueIndentitiesAsync(DateTime day);
 
-        Task<long> CountUniqueAsync(DateTime from, DateTime to);
+        Task<long> CountUniqueIndentitiesAsync(DateTime from, DateTime to);
 
         Task<long> CountAsync(DateTime from, DateTime to);
 

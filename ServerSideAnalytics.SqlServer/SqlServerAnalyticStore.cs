@@ -61,14 +61,14 @@ namespace ServerSideAnalytics.SqlServer
             }
         }
 
-        public Task<long> CountUniqueAsync(DateTime day)
+        public Task<long> CountUniqueIndentitiesAsync(DateTime day)
         {
             var from = day.Date;
             var to = day + TimeSpan.FromDays(1);
-            return CountUniqueAsync(from, to);
+            return CountUniqueIndentitiesAsync(from, to);
         }
 
-        public async Task<long> CountUniqueAsync(DateTime from, DateTime to)
+        public async Task<long> CountUniqueIndentitiesAsync(DateTime from, DateTime to)
         {
             using (var db = GetContext())
             {
