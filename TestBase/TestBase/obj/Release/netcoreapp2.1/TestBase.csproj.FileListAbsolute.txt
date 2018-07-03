@@ -1,0 +1,17 @@
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\TestBase.deps.json
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\TestBase.runtimeconfig.json
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\TestBase.runtimeconfig.dev.json
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\TestBase.dll
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\TestBase.pdb
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\ServerSideAnalytics.dll
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\bin\Release\netcoreapp2.1\ServerSideAnalytics.pdb
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\obj\Release\netcoreapp2.1\TestBase.csprojAssemblyReference.cache
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\obj\Release\netcoreapp2.1\TestBase.csproj.CoreCompileInputs.cache
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\obj\Release\netcoreapp2.1\TestBase.AssemblyInfoInputs.cache
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\obj\Release\netcoreapp2.1\TestBase.AssemblyInfo.cs
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\obj\Release\netcoreapp2.1\TestBase.csproj.CopyComplete
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\obj\Release\netcoreapp2.1\TestBase.dll
+D:\PROGETTI\ServerSideAnalytics\TestBase\TestBase\obj\Release\netcoreapp2.1\TestBase.pdb

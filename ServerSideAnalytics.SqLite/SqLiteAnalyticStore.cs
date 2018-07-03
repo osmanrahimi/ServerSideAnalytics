@@ -158,6 +158,7 @@ namespace ServerSideAnalytics.SqLite
         {
             using (var db = GetContext())
             {
+                await db.Database.EnsureCreatedAsync();
                 db.WebRequest.RemoveRange(db.WebRequest);
                 await db.SaveChangesAsync();
             }
@@ -168,6 +169,7 @@ namespace ServerSideAnalytics.SqLite
         {
             using (var db = GetContext())
             {
+                await db.Database.EnsureCreatedAsync();
                 db.GeoIpRange.RemoveRange(db.GeoIpRange);
                 await db.SaveChangesAsync();
             }
