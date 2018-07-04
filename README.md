@@ -13,8 +13,7 @@ public void Configure(IApplicationBuilder app)
             .ExcludePath("/content")
             .ExcludeExtension(".js")
             .ExcludeExtension(".css")
-            .ExcludeLoopBack()
-            .UseGeoIp(IpInfo.Resolve);
+            .ExcludeLoopBack();
 }
 ```
 
@@ -22,20 +21,7 @@ To store request implement the IWebRequestStore.
 There are some already implemented stores available on Nuget:
 
 [https://www.nuget.org/packages/ServerSideAnalytics.Mongo](https://www.nuget.org/packages/ServerSideAnalytics.Mongo)
-
 [https://www.nuget.org/packages/ServerSideAnalytics.SqlServer](https://www.nuget.org/packages/ServerSideAnalytics.SqlServer)
-
 [https://www.nuget.org/packages/ServerSideAnalytics.Sqlite](https://www.nuget.org/packages/ServerSideAnalytics.Sqlite)
-
-
-Any help into design and implementation of stores is welcome 💗
-
-```csharp
-public interface IWebRequestStore<T> where T : IWebRequest
-{
-   T GetNew();
-   Task AddAsync(T request);
-}
-```
 
 
