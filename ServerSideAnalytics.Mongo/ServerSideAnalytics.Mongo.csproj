@@ -19,7 +19,10 @@
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="Countries.Standard" Version="1.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
-    <PackageReference Include="ServerSideAnalytics" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServerSideAnalytics\ServerSideAnalytics.csproj" />
   </ItemGroup>
 
 </Project>

@@ -137,5 +137,13 @@ namespace ServerSideAnalytics.Mongo
         public Task PurgeRequestAsync() => _requestCollection.DeleteManyAsync(x => true);
 
         public Task PurgeGeoIpAsync() => _geoIpCollection.DeleteManyAsync(x => true);
+
+        public async Task<IEnumerable<WebRequest>> InTimeRange(DateTime from, DateTime to)
+        {
+            return (await (await _requestCollection
+                .FindAsync(x => x.Timestamp >= from && x.Timestamp <= to)).ToListAsync())
+                .Select(x => Mapper.Map<WebRequest>(x))
+                .ToList();
+        }
     }
 }

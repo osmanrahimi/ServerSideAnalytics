@@ -1752,7 +1752,7 @@
           "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
         }
       },
-      "ServerSideAnalytics/4.0.0": {
+      "ServerSideAnalytics/4.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -5914,7 +5914,7 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "ServerSideAnalytics/4.0.0": {
+    "ServerSideAnalytics/4.2.0": {
       "type": "project",
       "path": "../../ServerSideAnalytics/ServerSideAnalytics.csproj",
       "msbuildProject": "../../ServerSideAnalytics/ServerSideAnalytics.csproj"
@@ -5924,7 +5924,7 @@
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.NET.Test.Sdk >= 15.7.0",
       "Microsoft.NETCore.App >= 2.1.0",
-      "ServerSideAnalytics >= 4.0.0",
+      "ServerSideAnalytics >= 4.2.0",
       "xunit >= 2.3.1",
       "xunit.runner.visualstudio >= 2.3.1"
     ]

@@ -20,6 +20,8 @@ namespace ServerSideAnalytics
 
         Task<IEnumerable<IPAddress>> IpAddressesAsync(DateTime from, DateTime to);
 
+        Task<IEnumerable<WebRequest>> InTimeRange(DateTime from, DateTime to);
+
         Task<IEnumerable<WebRequest>> RequestByIdentityAsync(string identity);
 
         Task StoreGeoIpRangeAsync(IPAddress from, IPAddress to, CountryCode countryCode);
