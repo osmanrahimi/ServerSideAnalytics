@@ -52,5 +52,15 @@ namespace ServerSideAnalytics.Extensions
         {
             return new IpInfoAnalyticStore(store);
         }
+
+        public static IAnalyticStore UseIpStackFailOver(this IAnalyticStore store, string key)
+        {
+            return new IpStackAnalyticStore(store, key);
+        }
+
+        public static IAnalyticStore UseIpApiFailOver(this IAnalyticStore store)
+        {
+            return new IpApiAnalyticStore(store);
+        }
     }
 }

@@ -10,14 +10,12 @@ using Newtonsoft.Json.Linq;
 
 namespace ServerSideAnalytics.Extensions
 {
-    class IpInfoAnalyticStore : IAnalyticStore
+    class IpApiAnalyticStore : IAnalyticStore
     {
-        string token;
         IAnalyticStore store;
 
-        public IpInfoAnalyticStore(IAnalyticStore store, string token="")
+        public IpApiAnalyticStore(IAnalyticStore store)
         {
-            this.token = token;
             this.store = store;
         }
 
@@ -48,10 +46,10 @@ namespace ServerSideAnalytics.Extensions
                 if(resolved == CountryCode.World)
                 {
                     var ipstr = address.ToString();
-                    var response = await (new HttpClient()).GetStringAsync($"https://ipinfo.io/{ipstr}??token={token}");
+                    var response = await (new HttpClient()).GetStringAsync($"http://ip-api.com/json/{ipstr}");
 
                     var obj = JsonConvert.DeserializeObject(response) as JObject;
-                    resolved = (CountryCode)Enum.Parse(typeof(CountryCode), obj["country"].ToString());
+                    resolved = (CountryCode)Enum.Parse(typeof(CountryCode), obj["country_code"].ToString());
 
                     await store.StoreGeoIpRangeAsync(address, address, resolved);
 
@@ -62,8 +60,8 @@ namespace ServerSideAnalytics.Extensions
             }
             catch (Exception)
             {
+                return CountryCode.World;
             }
-            return CountryCode.World;
         }
 
         public Task StoreGeoIpRangeAsync(IPAddress from, IPAddress to, CountryCode countryCode)
