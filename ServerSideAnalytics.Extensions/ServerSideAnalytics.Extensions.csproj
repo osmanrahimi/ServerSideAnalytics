@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Countries.Standard" Version="1.0.0" />
-    <PackageReference Include="ServerSideAnalytics" Version="4.2.0" />
+    <PackageReference Include="ServerSideAnalytics" Version="4.2.1" />
   </ItemGroup>
 
 </Project>
