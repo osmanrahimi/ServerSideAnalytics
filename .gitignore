@@ -36,3 +36,5 @@
 /TestSqLite/bin
 /TestSqlServer/bin
 /TestSqlServer/obj
+/ServerSideAnalytics.Extensions/obj
+/ServerSideAnalytics.Extensions/bin
