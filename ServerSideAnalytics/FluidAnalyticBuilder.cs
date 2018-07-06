@@ -50,12 +50,14 @@ namespace ServerSideAnalytics
 
         public FluidAnalyticBuilder Exclude(IPAddress ip) => Exclude(x => Equals(x.Connection.RemoteIpAddress, ip));
 
-        public FluidAnalyticBuilder ExcludePath(string path) => Exclude(x => Equals(x.Request.Path.StartsWithSegments(path)));
+        public FluidAnalyticBuilder ExcludePath(params string[] paths) => Exclude(x => paths.Any(path => Equals(x.Request.Path.StartsWithSegments(path))));
 
         public FluidAnalyticBuilder LimitToPath(string path) => Exclude(x => !Equals(x.Request.Path.StartsWithSegments(path)));
 
-        public FluidAnalyticBuilder ExcludeExtension(string extension) => Exclude(x => x.Request.Path.Value?.EndsWith(extension) ?? false);
+        public FluidAnalyticBuilder ExcludeExtension(params string[] extensions) => Exclude(x => extensions.Any(extension => x.Request.Path.Value?.EndsWith(extension) ?? false));
 
         public FluidAnalyticBuilder ExcludeLoopBack() => Exclude(x => IPAddress.IsLoopback(x.Connection.RemoteIpAddress));
+
+        public FluidAnalyticBuilder ExcludeIp(IPAddress address) => Exclude(x => x.Connection.RemoteIpAddress.Equals(address));
     }
 }
