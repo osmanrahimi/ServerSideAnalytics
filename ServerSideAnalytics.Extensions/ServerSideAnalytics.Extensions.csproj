@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Countries.Standard" Version="1.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="ServerSideAnalytics" Version="4.2.1" />
   </ItemGroup>
 
