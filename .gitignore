@@ -38,3 +38,5 @@
 /TestSqlServer/obj
 /ServerSideAnalytics.Extensions/obj
 /ServerSideAnalytics.Extensions/bin
+/TestApp.Mongo/TestApp.Mongo.csproj.user
+/Countries.Core/obj/Release/netcoreapp2.0/Countries.Core.csprojAssemblyReference.cache
