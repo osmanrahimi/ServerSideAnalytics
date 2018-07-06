@@ -145,5 +145,17 @@ namespace ServerSideAnalytics.Mongo
                 .Select(x => Mapper.Map<WebRequest>(x))
                 .ToList();
         }
+
+        public async Task UpdateRequestCountries()
+        {
+            var req = (await _requestCollection.FindAsync(x => true)).ToEnumerable();
+
+            foreach (var item in req)
+            {
+                item.Country = await this.ResolveCountryCodeAsync(IPAddress.Parse(item.RemoteIpAddress));
+
+                _requestCollection.ReplaceOne(x => x.Id == item.Id, item);
+            }
+        }
     }
 }
