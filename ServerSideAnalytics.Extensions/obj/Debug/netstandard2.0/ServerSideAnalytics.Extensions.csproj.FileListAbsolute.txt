@@ -1,6 +1,0 @@
-D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.Extensions\bin\Debug\netstandard2.0\ServerSideAnalytics.Extensions.deps.json
-D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.Extensions\bin\Debug\netstandard2.0\ServerSideAnalytics.Extensions.dll
-D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.Extensions\obj\Debug\netstandard2.0\ServerSideAnalytics.Extensions.csprojAssemblyReference.cache
-D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.Extensions\obj\Debug\netstandard2.0\ServerSideAnalytics.Extensions.csproj.CoreCompileInputs.cache
-D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.Extensions\obj\Debug\netstandard2.0\ServerSideAnalytics.Extensions.AssemblyInfoInputs.cache
-D:\PROGETTI\ServerSideAnalytics\ServerSideAnalytics.Extensions\obj\Debug\netstandard2.0\ServerSideAnalytics.Extensions.AssemblyInfo.cs
