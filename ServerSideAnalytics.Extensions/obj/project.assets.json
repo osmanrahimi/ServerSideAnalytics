@@ -73,7 +73,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "ServerSideAnalytics/4.0.0": {
+      "ServerSideAnalytics/4.2.0": {
         "type": "package",
         "dependencies": {
           "Countries.Standard": "1.0.0",
@@ -325,13 +325,13 @@
         "netstandard.library.nuspec"
       ]
     },
-    "ServerSideAnalytics/4.0.0": {
-      "sha512": "hf9ofK9cOqm6+qSDL/pV5QP7FN6kBCkl7+D9y5X8a2FVvY4XssxpoYmrYE4H6BkkeaWgyy2FcrbIFQ/0o9GGNg==",
+    "ServerSideAnalytics/4.2.0": {
+      "sha512": "fwRwxp/MjXTqH535VN5+OVxCp4BC1sl2Yn2Z7Uthcxj2MSRqT80TIPTMAXzApTPlrqPJkJswzTrJWscGr37SiA==",
       "type": "package",
-      "path": "serversideanalytics/4.0.0",
+      "path": "serversideanalytics/4.2.0",
       "files": [
         "lib/netstandard2.0/ServerSideAnalytics.dll",
-        "serversideanalytics.4.0.0.nupkg.sha512",
+        "serversideanalytics.4.2.0.nupkg.sha512",
         "serversideanalytics.nuspec"
       ]
     },
@@ -484,8 +484,9 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "Countries.Standard >= 1.0.0",
       "NETStandard.Library >= 2.0.3",
-      "ServerSideAnalytics >= 4.0.0"
+      "ServerSideAnalytics >= 4.2.0"
     ]
   },
   "packageFolders": {
@@ -529,6 +530,10 @@
     "frameworks": {
       "netstandard2.0": {
         "dependencies": {
+          "Countries.Standard": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          },
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
@@ -537,7 +542,7 @@
           },
           "ServerSideAnalytics": {
             "target": "Package",
-            "version": "[4.0.0, )"
+            "version": "[4.2.0, )"
           }
         },
         "imports": [

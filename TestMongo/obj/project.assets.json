@@ -2446,8 +2446,7 @@
         "dependencies": {
           "AutoMapper": "7.0.1",
           "Countries.Standard": "1.0.0",
-          "MongoDB.Driver": "2.7.0",
-          "ServerSideAnalytics": "4.2.0"
+          "MongoDB.Driver": "2.7.0"
         },
         "compile": {
           "bin/placeholder/ServerSideAnalytics.Mongo.dll": {}

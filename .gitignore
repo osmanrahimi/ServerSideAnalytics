@@ -28,3 +28,11 @@
 /TestApp.SqlServer/obj
 /TestApp.Mongo/bin
 /TestApp.Mongo/obj
+/TestBase/TestBase/obj
+/TestBase/TestBase/bin
+/TestMongo/obj
+/TestMongo/bin
+/TestSqLite/obj
+/TestSqLite/bin
+/TestSqlServer/bin
+/TestSqlServer/obj
