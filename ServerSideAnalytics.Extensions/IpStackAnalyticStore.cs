@@ -48,7 +48,7 @@ namespace ServerSideAnalytics.Extensions
                 if(resolved == CountryCode.World)
                 {
                     var ipstr = address.ToString();
-                    var response = await (new HttpClient()).GetStringAsync($"http://api.ipstack.com/86.49.47.89?access_key={accessKey}&format=1");
+                    var response = await (new HttpClient()).GetStringAsync($"http://api.ipstack.com/{ipstr}?access_key={accessKey}&format=1");
 
                     var obj = JsonConvert.DeserializeObject(response) as JObject;
                     resolved = (CountryCode)Enum.Parse(typeof(CountryCode), obj["country_code"].ToString());
