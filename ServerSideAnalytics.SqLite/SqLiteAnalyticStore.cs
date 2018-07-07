@@ -17,6 +17,8 @@ namespace ServerSideAnalytics.SqLite
         private string _requestTable = "SSARequest";
         private string _geoIpTable = "SSAGeoIP";
 
+        private bool _firstCall;
+
         static SqLiteAnalyticStore()
         {
             var config = new MapperConfiguration(cfg =>
@@ -31,7 +33,16 @@ namespace ServerSideAnalytics.SqLite
             Mapper = config.CreateMapper();
         }
 
-        private SqLiteContext GetContext() => new SqLiteContext(_connectionString, _requestTable, _geoIpTable);
+        private SqLiteContext GetContext()
+        {
+            var context = new SqLiteContext(_connectionString, _requestTable, _geoIpTable);
+            if (!_firstCall)
+            {
+                context.Database.EnsureCreated();
+                _firstCall = true;
+            }
+            return context;
+        }
 
         public SqLiteAnalyticStore(string connectionString)
         {
