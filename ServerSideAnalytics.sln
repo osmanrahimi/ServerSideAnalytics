@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerSideAnalytics", "ServerSideAnalytics\ServerSideAnalytics.csproj", "{FEBBA6EE-7EC7-42B2-A03A-C6F56D30BE0B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerSideAnalytics.Mongo", "ServerSideAnalytics.Mongo\ServerSideAnalytics.Mongo.csproj", "{F3944A25-D657-46EA-83DD-64AF55CF9E43}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerSideAnalytics.SqlServer", "ServerSideAnalytics.SqlServer\ServerSideAnalytics.SqlServer.csproj", "{2125A874-D798-4557-9C6C-1F181FF0DCBA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerSideAnalytics.SqLite", "ServerSideAnalytics.SqLite\ServerSideAnalytics.SqLite.csproj", "{1B6E780F-712C-4347-B581-A30951D1FC44}"
@@ -27,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSqlServer", "TestSqlSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerSideAnalytics.Extensions", "ServerSideAnalytics.Extensions\ServerSideAnalytics.Extensions.csproj", "{6C18AC2E-3A32-440D-8BE3-EF5BE7C8AD8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeProject", "CodeProject\CodeProject.csproj", "{70C7CF26-CD8E-4B19-9053-8BA7A6721F91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerSideAnalytics.Mongo", "ServerSideAnalytics.Mongo\ServerSideAnalytics.Mongo.csproj", "{B6C14FA4-9236-4B5E-B3E4-09138729AE5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +39,6 @@ Global
 		{FEBBA6EE-7EC7-42B2-A03A-C6F56D30BE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEBBA6EE-7EC7-42B2-A03A-C6F56D30BE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEBBA6EE-7EC7-42B2-A03A-C6F56D30BE0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3944A25-D657-46EA-83DD-64AF55CF9E43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3944A25-D657-46EA-83DD-64AF55CF9E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3944A25-D657-46EA-83DD-64AF55CF9E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3944A25-D657-46EA-83DD-64AF55CF9E43}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2125A874-D798-4557-9C6C-1F181FF0DCBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2125A874-D798-4557-9C6C-1F181FF0DCBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2125A874-D798-4557-9C6C-1F181FF0DCBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,6 +79,14 @@ Global
 		{6C18AC2E-3A32-440D-8BE3-EF5BE7C8AD8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C18AC2E-3A32-440D-8BE3-EF5BE7C8AD8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C18AC2E-3A32-440D-8BE3-EF5BE7C8AD8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70C7CF26-CD8E-4B19-9053-8BA7A6721F91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70C7CF26-CD8E-4B19-9053-8BA7A6721F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70C7CF26-CD8E-4B19-9053-8BA7A6721F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70C7CF26-CD8E-4B19-9053-8BA7A6721F91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6C14FA4-9236-4B5E-B3E4-09138729AE5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6C14FA4-9236-4B5E-B3E4-09138729AE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6C14FA4-9236-4B5E-B3E4-09138729AE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C14FA4-9236-4B5E-B3E4-09138729AE5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

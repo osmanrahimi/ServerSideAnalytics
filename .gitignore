@@ -40,3 +40,6 @@
 /ServerSideAnalytics.Extensions/bin
 /TestApp.Mongo/TestApp.Mongo.csproj.user
 /Countries.Core/obj/Release/netcoreapp2.0/Countries.Core.csprojAssemblyReference.cache
+/CodeProject/bin
+/CodeProject/obj
+/TestApp.Sqlite/stat.db

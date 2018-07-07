@@ -44,6 +44,11 @@ namespace ServerSideAnalytics.SqLite
             return context;
         }
 
+        public SqLiteAnalyticStore():this("Data Source = stat.db")
+        {
+
+        }
+
         public SqLiteAnalyticStore(string connectionString)
         {
             _connectionString = connectionString;
